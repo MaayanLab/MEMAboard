@@ -475,12 +475,16 @@ limitations under the License.
 <style is="custom-style">
 
   :root {
-    /*
-     * You can use these generic variables in your elements for easy theming.
+
+    --custom-color: #1D7098;
+    /*--custom-color: #880E4F;*/
+    /*This is what the color was originally*/
+    
+/*     * You can use these generic variables in your elements for easy theming.
      * For example, if all your elements use `--primary-text-color` as its main
      * color, then switching from a light to a dark theme is just a matter of
-     * changing the value of `--primary-text-color` in your application.
-     */
+     * changing the value of `--primary-text-color` in your application.*/
+     
     --primary-text-color: var(--light-theme-text-color);
     --primary-background-color: var(--light-theme-background-color);
     --secondary-text-color: var(--light-theme-secondary-color);
@@ -490,7 +494,7 @@ limitations under the License.
 
     /*
      * Primary and accent colors. Also see color.html for more colors.
-     */
+     
     --primary-color: var(--paper-indigo-500);
     --light-primary-color: var(--paper-indigo-100);
     --dark-primary-color: var(--paper-indigo-700);
@@ -3215,13 +3219,17 @@ paper-tooltip {
 }
 
 paper-checkbox {
-  --paper-checkbox-checked-color: #880E4F;
+  --paper-checkbox-checked-color: var(--custom-color);
 }
 
+/*paper-checkbox {
+  --paper-checkbox-checked-color: #1D7098;
+}
+*/
 paper-toggle-button {
-  --paper-toggle-button-checked-bar-color:  #880E4F;
-  --paper-toggle-button-checked-button-color:  #880E4F;
-  --paper-toggle-button-checked-ink-color: #880E4F;
+  --paper-toggle-button-checked-bar-color:  var(--custom-color);
+  --paper-toggle-button-checked-button-color:  var(--custom-color);
+  --paper-toggle-button-checked-ink-color: var(--custom-color);
 }
 
 paper-icon-button {
@@ -3230,7 +3238,7 @@ paper-icon-button {
 
 paper-icon-button[active] {
   color: white;
-  background-color: #880E4F;
+  background-color: var(--custom-color);
 }
 
 .slider {
@@ -3738,7 +3746,7 @@ paper-textarea {
 <style include="vz-projector-styles"></style>
 <style>
 .container {
-  padding: 10px 20px 20px 20px;
+  padding: 10px 20px 80px 20px;
 }
 
 input[type=file] {
@@ -3891,7 +3899,7 @@ paper-dropdown-menu paper-item {
 }
 */
 </style>
-<div class="title">IMAGING DATA</div>
+<div class="title">DATA</div>
 <div class="container">
   
   <template is="dom-if" if="[[_hasChoices(runNames)]]">
@@ -4069,7 +4077,7 @@ paper-dropdown-menu paper-item {
     </paper-dialog>
   </div>
   <div class="dirs">
-    <table>
+<!--     <table>
       <tbody><tr>
         <td>Checkpoint:</td>
         <td><span id="checkpoint-file"></span></td>
@@ -4078,7 +4086,7 @@ paper-dropdown-menu paper-item {
         <td>Metadata:</td>
         <td><span id="metadata-file"></span></td>
       </tr>
-    </tbody></table>
+    </tbody></table> -->
   </div>
 </div>
 
@@ -4533,7 +4541,7 @@ paper-dropdown-menu paper-item {
 }
 
 .toggle[active] {
-  background-color: #880E4F;
+  background-color: var(--custom-color);
   color: white;
 }
 </style>
@@ -4924,7 +4932,7 @@ paper-dropdown-menu paper-item {
 }
 
 .notice {
-  color: #880E4F;
+  color: var(--custom-color);
 }
 
 .container {
