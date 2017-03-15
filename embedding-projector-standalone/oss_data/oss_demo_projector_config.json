@@ -1,19 +1,19 @@
 {
   "embeddings": [
     {
-      "tensorName": "MCF10A SS1",
+      "tensorName": "Staining Set 1",
       "tensorShape": [2736, 57],
       "tensorPath": "oss_data/MCF10A_SS1.tsv",
       "metadataPath": "oss_data/MCF10A_SS1_meta.tsv"
     },
     {
-      "tensorName": "MCF10A SS2",
+      "tensorName": "Staining Set 2",
       "tensorShape": [2736, 24],
       "tensorPath": "oss_data/MCF10A_SS2.tsv",
       "metadataPath": "oss_data/MCF10A_SS2_meta.tsv"
     },
     {
-      "tensorName": "MCF10A SS3",
+      "tensorName": "Staining Set 3",
       "tensorShape": [2736, 70],
       "tensorPath": "oss_data/MCF10A_SS3.tsv",
       "metadataPath": "oss_data/MCF10A_SS3_meta.tsv"

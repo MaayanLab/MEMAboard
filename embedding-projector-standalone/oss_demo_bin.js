@@ -54371,7 +54371,10 @@ function Jo(a) {
 			b = [0, 1];
 			a.tSNEis3d && b.push(2);
 			break;
-		case "custom":
+		// case "custom":
+		// 	b = ["x", "y"];
+		// 	break;
+		case "cluster":
 			b = ["x", "y"];
 			break;
 		default:
@@ -56411,6 +56414,7 @@ q.setNormalizeData = function(a) {
 };
 q._selectedTensorChanged = function() {
 	var a = this;
+	my_tensor = this.selectedTensor
 	this.projector.updateDataSet(null, null, null);
 	null != this.selectedTensor && (this.dataProvider.retrieveTensor(this.selectedRun, this.selectedTensor, function(b) {
 		var c = a.getEmbeddingInfoByName(a.selectedTensor).metadataPath;
@@ -56985,10 +56989,21 @@ Lq.ProjectionsPanelPolymer = mq({
 			value: 2,
 			observer: "showPCAIfEnabled"
 		},
-		customSelectedSearchByMetadataOption: {
+		clusterOpts: Array,
+		clusterRows: {
 			type: String,
-			observer: "_customSelectedSearchByMetadataOptionChanged"
-		}
+			value: "Cluster",
+			observer: "showClusterIfEnabled"
+		},
+		clusterCols: {
+			type: String,
+			value: "Cluster",
+			observer: "showClusterIfEnabled"
+		},
+		// customSelectedSearchByMetadataOption: {
+		// 	type: String,
+		// 	observer: "_customSelectedSearchByMetadataOptionChanged"
+		// }
 	}
 });
 var Oq = function(a) {
@@ -57056,7 +57071,7 @@ q.setupUIControls = function() {
 			return a.updateTSNELearningRateFromUIChange()
 		});
 	this.updateTSNELearningRateFromUIChange();
-	this.setupCustomProjectionInputFields();
+	// this.setupCustomProjectionInputFields();
 	this.dom.selectAll("paper-dropdown-menu paper-input input").style("font-size", "14px")
 };
 q.restoreUIFromBookmark = function(a) {
@@ -57147,9 +57162,13 @@ q.showTab = function(a) {
 	this.beginProjection(a)
 };
 q.beginProjection = function(a) {
-	!1 !== this.polymerChangesTriggerReprojection && ("pca" === a ? (null != this.dataSet && this.dataSet.stopTSNE(), this.showPCA()) : "tsne" === a ? this.showTSNE() : "custom" === a && (null != this.dataSet && this.dataSet.stopTSNE(), this.computeAllCentroids(), this.reprojectCustom()))
+	// !1 !== this.polymerChangesTriggerReprojection && ("pca" === a ? (null != this.dataSet && this.dataSet.stopTSNE(), this.showPCA()) : "tsne" === a ? this.showTSNE() : "custom" === a && (null != this.dataSet && this.dataSet.stopTSNE(), this.computeAllCentroids(), this.reprojectCustom()))
+	!1 !== this.polymerChangesTriggerReprojection && ("pca" === a ? (null != this.dataSet && this.dataSet.stopTSNE(), this.showPCA()) : "tsne" === a ? this.showTSNE() : "cluster" === a && (null != this.dataSet && this.dataSet.stopTSNE(), this.loadCluster()))
 };
 q.showTSNE = function() {
+	console.log("show TSNE")
+	d3.select("#clustergram-container").style("display","none")
+	d3.select("#scatter").style("display","block")
 	var a = this.dataSet;
 	if (null != a) {
 		var b = yo.getProjectionComponents("tsne", [0, 1, this.tSNEis3d ? 2 : null]),
@@ -57170,6 +57189,9 @@ q.runTSNE = function() {
 q.showPCAIfEnabled = function() {
 	this.polymerChangesTriggerReprojection && this.showPCA()
 };
+q.showClusterIfEnabled = function() {
+	this.showCluster()
+};
 q.updateTotalVarianceMessage = function() {
 	var a = this.dataSet.fracVariancesExplained,
 		b = a[this.pcaX] + a[this.pcaY],
@@ -57179,6 +57201,9 @@ q.updateTotalVarianceMessage = function() {
 	this.dom.select("#total-variance").html(c)
 };
 q.showPCA = function() {
+	console.log("show PCA")
+	d3.select("#clustergram-container").style("display","none")
+	d3.select("#scatter").style("display","block")
 	var a = this;
 	null != this.dataSet && this.dataSet.projectPCA().then(function() {
 		var b = yo.getProjectionComponents("pca", [a.pcaX, a.pcaY, a.pcaZ]),
@@ -57196,6 +57221,64 @@ q.showPCA = function() {
 			}
 		})
 	})
+};
+q.showCluster = function() {
+	console.log("showCluster")
+	var a = this;
+	opts = ["Alphabetically", "Cluster", "Sum", "Variance"]
+	a.clusterOpts = d3.range(0,opts.length).map(function(b) {
+		return {
+			id: b,
+			option: opts[b]
+		}
+	})
+};
+q.loadCluster = function() {
+	d3.select("#scatter").style("display","none")
+	d3.select("#clustergram-container").style("display","block")
+
+	// var a = this;
+	console.log("load cluster")
+
+	// a = this.getLegendPointColorer()
+
+	var a = this.projector.getCurrentState()
+
+	// console.log(this.DataPanel.getCurrentState())
+	// console.log(this._properties)
+	// console.log(this.DataPanel._properties)
+
+	// var b = this.DataPanel.selectedTensor()
+
+
+	var b = this.projector.dataSet
+
+	label = a.selectedLabelOption
+	color = a.selectedColorOptionName
+	data = b.points
+
+	// var b = this.projector.setupUploadButtons
+
+	console.log(this.clusterCols)
+	console.log(this.clusterRows)
+	console.log(a)
+	console.log(a.selectedLabelOption)
+	console.log(a.selectedColorOptionName)
+	console.log(b)
+	console.log(b.points)
+
+	make_clust('mult_view.json')
+	// this.getSeparatorClass(item.isSeparator)
+	// console.log(this.attributes)
+	// console.log(a.dataPanel.selectedColorOptionName.name)
+	// console.log(this.selectedLabelOption())	
+
+	// console.log(a.selectedLabelOption)
+	// console.log(this.)
+
+	// console.log(this.selectedLabelOption)
+	// console.log(this.selectedColorOptionName)
+	// console.log("load cluster")
 };
 q.reprojectCustom = function() {
 	if (null != this.centroids && null != this.centroids.xLeft && null != this.centroids.xRight && null != this.centroids.yUp && null != this.centroids.yDown) {
@@ -57220,12 +57303,12 @@ q.clearCentroids = function() {
 q._customSelectedSearchByMetadataOptionChanged = function(a, b) {
 	!1 !== this.polymerChangesTriggerReprojection && "custom" === this.currentProjection && (this.computeAllCentroids(), this.reprojectCustom())
 };
-q.setupCustomProjectionInputFields = function() {
-	this.customProjectionXLeftInput = this.setupCustomProjectionInputField("xLeft");
-	this.customProjectionXRightInput = this.setupCustomProjectionInputField("xRight");
-	this.customProjectionYUpInput = this.setupCustomProjectionInputField("yUp");
-	this.customProjectionYDownInput = this.setupCustomProjectionInputField("yDown")
-};
+// q.setupCustomProjectionInputFields = function() {
+// 	this.customProjectionXLeftInput = this.setupCustomProjectionInputField("xLeft");
+// 	this.customProjectionXRightInput = this.setupCustomProjectionInputField("xRight");
+// 	this.customProjectionYUpInput = this.setupCustomProjectionInputField("yUp");
+// 	this.customProjectionYDownInput = this.setupCustomProjectionInputField("yDown")
+// };
 q.computeAllCentroids = function() {
 	this.computeCentroid("xLeft");
 	this.computeCentroid("xRight");

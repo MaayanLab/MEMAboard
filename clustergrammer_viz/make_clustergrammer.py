@@ -25,7 +25,7 @@ net.load_file('txt/MCF10A_SS1_matrix.txt')
 # net.filter_threshold('row', threshold=3.0, num_occur=4)
 # net.swap_nan_for_zero()
 
-net.make_clust(dist_type='cos',views=[] , sim_mat=False)
+net.make_clust(dist_type='cos', views=[], sim_mat=False)
 
 # write jsons for front-end visualizations
 net.write_json_to_file('viz', 'json/mult_view.json', 'indent')

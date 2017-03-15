@@ -3512,10 +3512,6 @@ paper-textarea {
 </dom-module>
 
 
-
-
-
-
 <dom-module id="iron-dropdown" assetpath="/components_dir/iron-dropdown/">
   <style>
     :host {
@@ -4560,7 +4556,9 @@ paper-dropdown-menu paper-item {
 
 
 </template>
-</dom-module><dom-module id="vz-projector-inspector-panel" assetpath="/components_dir/vz-projector/">
+</dom-module>
+
+<dom-module id="vz-projector-inspector-panel" assetpath="/components_dir/vz-projector/">
 <style include="vz-projector-styles"></style>
 <style>
 :host {
@@ -4982,9 +4980,9 @@ paper-dropdown-menu paper-item {
         Principal component analysis
       </paper-tooltip>
 
-      <div data-tab="custom" id="custom-tab" class="ink-tab projection-tab" title="Linear projection of two custom vectors">Custom</div>
-      <paper-tooltip for="custom-tab" position="bottom" animation-delay="0" fit-to-visible-bounds="">
-        Search for two vectors upon which to project all points.
+      <div data-tab="cluster" id="cluster-tab" class="ink-tab projection-tab" title="Heatmap of data using clustergrammer.">Cluster</div>
+      <paper-tooltip for="cluster-tab" position="bottom" animation-delay="0" fit-to-visible-bounds="">
+        Heatmap clustering
       </paper-tooltip>
 
     </div>
@@ -5102,23 +5100,60 @@ paper-dropdown-menu paper-item {
       </paper-tooltip>
     </div>
     
-    <div data-panel="custom" class="ink-panel-content">
-      <paper-dropdown-menu style="width: 100%" no-animations="" label="Search by">
-        <paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{customSelectedSearchByMetadataOption}}">
+    <div data-panel="cluster" class="ink-panel-content">
+
+      <!-- <paper-dropdown-menu style="width: 100%" no-animations="" label="Search by"> -->
+        <!-- <paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{customSelectedSearchByMetadataOption}}">
           <template is="dom-repeat" items="[[searchByMetadataOptions]]">
             <paper-item class="dropdown-item" value="[[item]]" label="[[item]]">
               [[item]]
             </paper-item>
           </template>
-        </paper-listbox>
-      </paper-dropdown-menu>
-      <div class="two-columns">
+        </paper-listbox> -->
+      <!-- </paper-dropdown-menu> -->
+
+<!--       <div class="two-columns">
         <vz-projector-input id="xLeft" label="Left"></vz-projector-input>
         <vz-projector-input id="xRight" label="Right"></vz-projector-input>
       </div>
       <div class="two-columns">
         <vz-projector-input id="yUp" label="Up"></vz-projector-input>
         <vz-projector-input id="yDown" label="Down"></vz-projector-input>
+      </div> -->
+
+      <div class="two-columns">
+        <div>
+          <paper-dropdown-menu class="cluster-dropdown" vertical-align="bottom" no-animations="" label="Order rows by">
+            <paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{clusterRows}}">
+              <paper-item disabled="" class="dropdown-item header">
+                  <div>Order...</div>
+              </paper-item>
+
+              <template is="dom-repeat" items="[[clusterOpts]]">
+                <paper-item class="dropdown-item" value="[[item.id]]" label="[[item.option]]">
+                  <div>[[item.option]]</div>
+                  <!-- <div class="item-details">[[item.percVariance]]</div> -->
+                </paper-item>
+              </template>
+            </paper-listbox>
+          </paper-dropdown-menu>
+        </div>
+
+        <div>
+          <paper-dropdown-menu class="cluster-dropdown" vertical-align="bottom" no-animations="" label="Order columns by">
+            <paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{clusterCols}}">
+              <paper-item disabled="" class="dropdown-item header">
+                  <div>Order by:</div>
+              </paper-item>
+              <template is="dom-repeat" items="[[clusterOpts]]">
+                <paper-item class="dropdown-item" value="[[item.id]]" label="[[item.option]]">
+                  <div>[[item.option]]</div>
+                  <!-- <div class="item-details">[[item.percVariance]]</div> -->
+                </paper-item>
+              </template>
+            </paper-listbox>
+          </paper-dropdown-menu>
+        </div>
       </div>
     </div>
   </div>
@@ -5394,6 +5429,8 @@ paper-dropdown-menu paper-item {
       <div id="scatter">
         <svg id="selector"></svg>
       </div>
+      <div id="clustergram-container" style="height: 500px; width: 500px"></div>
+
       <vz-projector-metadata-card id="metadata-card"></vz-projector-metadata-card>
       <paper-icon-button raised="" onclick="help3dDialog.open()" icon="help-outline" id="help-3d-icon"></paper-icon-button>
       <paper-tooltip animation-delay="0" for="help-3d-icon">Help with interaction controls.</paper-tooltip>
