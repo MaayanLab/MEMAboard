@@ -56414,7 +56414,7 @@ q.setNormalizeData = function(a) {
 };
 q._selectedTensorChanged = function() {
 	var a = this;
-	my_tensor = this.selectedTensor
+	GlobalTensor = this.selectedTensor
 	this.projector.updateDataSet(null, null, null);
 	null != this.selectedTensor && (this.dataProvider.retrieveTensor(this.selectedRun, this.selectedTensor, function(b) {
 		var c = a.getEmbeddingInfoByName(a.selectedTensor).metadataPath;
@@ -57250,6 +57250,7 @@ q.loadCluster = function() {
 
 	// var b = this.DataPanel.selectedTensor()
 
+	var clust_json = GlobalTensor.replace(" ","").concat('.json')
 
 	var b = this.projector.dataSet
 
@@ -57267,18 +57268,9 @@ q.loadCluster = function() {
 	console.log(b)
 	console.log(b.points)
 
-	make_clust('mult_view.json')
-	// this.getSeparatorClass(item.isSeparator)
-	// console.log(this.attributes)
-	// console.log(a.dataPanel.selectedColorOptionName.name)
-	// console.log(this.selectedLabelOption())	
+	var clust_json = GlobalTensor.replace(" ","").concat('.json')
 
-	// console.log(a.selectedLabelOption)
-	// console.log(this.)
-
-	// console.log(this.selectedLabelOption)
-	// console.log(this.selectedColorOptionName)
-	// console.log("load cluster")
+	make_clust(clust_json)
 };
 q.reprojectCustom = function() {
 	if (null != this.centroids && null != this.centroids.xLeft && null != this.centroids.xRight && null != this.centroids.yUp && null != this.centroids.yDown) {

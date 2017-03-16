@@ -15,6 +15,10 @@ from clustergrammer import Network
 net = Network()
 
 # load matrix tsv file
+
+
+for ss in ['SS1','SS2','SS3']:
+	
 net.load_file('txt/MCF10A_SS1_matrix.txt')
 
 # optional filtering and normalization

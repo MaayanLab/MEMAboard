@@ -10,7 +10,7 @@ var about_string = 'Zoom, scroll, and click buttons to interact with the cluster
 
 function make_clust(inst_network) {
 
-  d3.select('#clustergram-container div').remove();
+  // d3.select('#clustergram-container div').remove();
     // console.log("running make_clust")
 
     d3.json('json/'+inst_network, function(network_data) {
@@ -42,6 +42,8 @@ function make_clust(inst_network) {
       cgm = Clustergrammer(args);
 
       d3.select(".expand_button").remove()
+      // d3.select(".modal fade").remove()
+      // d3.selectAll"
       // check_setup_enrichr(cgm);
 
       d3.select(cgm.params.root + ' .wait_message').remove();

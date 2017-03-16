@@ -1,0 +1,12 @@
+embeddings {
+  tensor_name: "SS1:0"
+  metadata_path: "mema_logs/SS1_metadata.tsv"
+}
+embeddings {
+  tensor_name: "SS2:0"
+  metadata_path: "mema_logs/SS2_metadata.tsv"
+}
+embeddings {
+  tensor_name: "SS3:0"
+  metadata_path: "mema_logs/SS3_metadata.tsv"
+}
