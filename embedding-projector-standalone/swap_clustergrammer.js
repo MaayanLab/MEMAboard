@@ -34,12 +34,14 @@ function make_clust(inst_network) {
 
       resize_container(args);
 
+      cgm = Clustergrammer(args);
+
       d3.select(window).on('resize',function(){
         resize_container(args);
         cgm.resize_viz();
       });
 
-      cgm = Clustergrammer(args);
+      // cgm = Clustergrammer(args);
 
       d3.select(".expand_button").remove()
       // d3.select(".modal fade").remove()

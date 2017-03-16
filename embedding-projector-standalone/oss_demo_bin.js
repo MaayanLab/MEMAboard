@@ -57268,7 +57268,9 @@ q.loadCluster = function() {
 	console.log(b)
 	console.log(b.points)
 
-	var clust_json = GlobalTensor.replace(" ","").concat('.json')
+	var clust_json = GlobalTensor.replace("Staining Set ","SS").concat('.json')
+
+	console.log(clust_json)
 
 	make_clust(clust_json)
 };

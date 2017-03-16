@@ -45,8 +45,10 @@ def get_mema_data(ss):
 	df = build_data(df)
 	df.to_csv(DATA_PATH, sep='\t', header=None, index=None)
 
-	with open(os.path.join(OUT_DIR,'MCF10_'+ss+'_cols.txt'),'w') as f:
+	with open(os.path.join(OUT_DIR,'MCF10A_'+ss+'_cols.txt'),'w') as f:
 		f.write('\n'.join(df.columns.values))
+
+	print ss, len(df.columns.values)
 
 	return df.shape, DATA_PATH, META_PATH
 
