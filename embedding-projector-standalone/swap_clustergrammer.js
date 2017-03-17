@@ -21,7 +21,7 @@ function make_clust(inst_network) {
       var args = {
         root: '#clustergram-container',
         'network_data': network_data,
-        'about':about_string,
+        'about': about_string,
         'ini_expand': true, // this removes the sidebar
         // 'row_tip_callback':hzome.gene_info,
         // 'col_tip_callback':test_col_callback,
@@ -34,14 +34,13 @@ function make_clust(inst_network) {
 
       resize_container(args);
 
-      cgm = Clustergrammer(args);
-
       d3.select(window).on('resize',function(){
+        console.log("resizing clustergrammer")
         resize_container(args);
         cgm.resize_viz();
       });
 
-      // cgm = Clustergrammer(args);
+      cgm = Clustergrammer(args);
 
       d3.select(".expand_button").remove()
       // d3.select(".modal fade").remove()
@@ -56,7 +55,10 @@ function make_clust(inst_network) {
 
 function resize_container(args){
 
+  // var screen_width = 1000 + 'px';
+  // var screen_width = parseInt(d3.select(".main").style("width"),10) - 300;
   var screen_width = d3.select(".stage").style("width");
+  // console.log(screen_width)
   var screen_height = d3.select(".stage").style("height");
 
   // var screen_width = window.innerWidth - 100;

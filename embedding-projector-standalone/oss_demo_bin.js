@@ -14153,6 +14153,7 @@ q._onDescendantIronResize = function(a) {
 	this._notifyingDescendant ? a.stopPropagation() : Polymer.Settings.useShadow || this._fireResize()
 };
 q._fireResize = function() {
+	console.log("fire resize")
 	this.fire("iron-resize", null, {
 		node: this,
 		bubbles: !1
@@ -56413,6 +56414,7 @@ q.setNormalizeData = function(a) {
 	this.normalizeData = a
 };
 q._selectedTensorChanged = function() {
+	d3.select('#clustergram-container div').remove();
 	var a = this;
 	GlobalTensor = this.selectedTensor
 	this.projector.updateDataSet(null, null, null);
@@ -57167,8 +57169,9 @@ q.beginProjection = function(a) {
 };
 q.showTSNE = function() {
 	console.log("show TSNE")
-	d3.select("#clustergram-container").style("display","none")
-	d3.select("#scatter").style("display","block")
+	d3.select("#clustergram-container").style("display","none");
+	d3.select("#scatter").style("display","block");
+	// d3.select('#clustergram-container div').html('');
 	var a = this.dataSet;
 	if (null != a) {
 		var b = yo.getProjectionComponents("tsne", [0, 1, this.tSNEis3d ? 2 : null]),
@@ -57202,8 +57205,9 @@ q.updateTotalVarianceMessage = function() {
 };
 q.showPCA = function() {
 	console.log("show PCA")
-	d3.select("#clustergram-container").style("display","none")
-	d3.select("#scatter").style("display","block")
+	d3.select("#clustergram-container").style("display","none");
+	d3.select("#scatter").style("display","block");
+	// d3.select('#clustergram-container div').html('');
 	var a = this;
 	null != this.dataSet && this.dataSet.projectPCA().then(function() {
 		var b = yo.getProjectionComponents("pca", [a.pcaX, a.pcaY, a.pcaZ]),
@@ -57234,6 +57238,8 @@ q.showCluster = function() {
 	})
 };
 q.loadCluster = function() {
+	console.log("start removing divs")
+	console.log("done removing divs")
 	d3.select("#scatter").style("display","none")
 	d3.select("#clustergram-container").style("display","block")
 
@@ -57260,17 +57266,17 @@ q.loadCluster = function() {
 
 	// var b = this.projector.setupUploadButtons
 
-	console.log(this.clusterCols)
-	console.log(this.clusterRows)
-	console.log(a)
-	console.log(a.selectedLabelOption)
-	console.log(a.selectedColorOptionName)
-	console.log(b)
-	console.log(b.points)
+	// console.log(this.clusterCols)
+	// console.log(this.clusterRows)
+	// console.log(a)
+	// console.log(a.selectedLabelOption)
+	// console.log(a.selectedColorOptionName)
+	// console.log(b)
+	// console.log(b.points)
 
 	var clust_json = GlobalTensor.replace("Staining Set ","SS").concat('.json')
 
-	console.log(clust_json)
+	// console.log(clust_json)
 
 	make_clust(clust_json)
 };
