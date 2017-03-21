@@ -53628,6 +53628,7 @@ function vn(a) {
 qn.setDomContainer = vn;
 
 function wn(a, b, c, d) {
+	// console.log("wn",a,b,c,d);
 	b = void 0 === b ? null : b;
 	c = void 0 === c ? null : c;
 	d = void 0 === d ? !1 : d;
@@ -53736,8 +53737,11 @@ function Hn(a, b, c) {
 zn.getSearchPredicate = Hn;
 
 function In(a, b, c) {
+	console.log("a =",a)
+	console.log("c =",c)
 	c = void 0 === c ? null : c;
 	var d = null == c;
+	console.log("d =",d)
 	c = wn(a, c);
 	return new Promise(function(a, f) {
 		d3.timer(function() {
@@ -56414,7 +56418,7 @@ q.setNormalizeData = function(a) {
 	this.normalizeData = a
 };
 q._selectedTensorChanged = function() {
-	d3.select('#clustergram-container div').remove();
+	d3.select('#clustergram div').remove();
 	var a = this;
 	GlobalTensor = this.selectedTensor
 	this.projector.updateDataSet(null, null, null);
@@ -57168,9 +57172,10 @@ q.beginProjection = function(a) {
 	!1 !== this.polymerChangesTriggerReprojection && ("pca" === a ? (null != this.dataSet && this.dataSet.stopTSNE(), this.showPCA()) : "tsne" === a ? this.showTSNE() : "cluster" === a && (null != this.dataSet && this.dataSet.stopTSNE(), this.loadCluster()))
 };
 q.showTSNE = function() {
-	console.log("show TSNE")
-	d3.select("#clustergram-container").style("display","none");
+	// console.log("show TSNE")
+	d3.select("#clustergram").style("display","none");
 	d3.select("#scatter").style("display","block");
+	d3.select(".colorby").style("label","")
 	// d3.select('#clustergram-container div').html('');
 	var a = this.dataSet;
 	if (null != a) {
@@ -57204,8 +57209,8 @@ q.updateTotalVarianceMessage = function() {
 	this.dom.select("#total-variance").html(c)
 };
 q.showPCA = function() {
-	console.log("show PCA")
-	d3.select("#clustergram-container").style("display","none");
+	// console.log("show PCA")
+	d3.select("#clustergram").style("display","none");
 	d3.select("#scatter").style("display","block");
 	// d3.select('#clustergram-container div').html('');
 	var a = this;
@@ -57238,47 +57243,23 @@ q.showCluster = function() {
 	})
 };
 q.loadCluster = function() {
-	console.log("start removing divs")
-	console.log("done removing divs")
-	d3.select("#scatter").style("display","none")
-	d3.select("#clustergram-container").style("display","block")
 
-	// var a = this;
-	console.log("load cluster")
+	In("Loading clustergram...", function() {} , 0) // Really hacky but it works
 
-	// a = this.getLegendPointColorer()
+	var a = this.projector.getCurrentState();
+	var b = this.projector.dataSet;
 
-	var a = this.projector.getCurrentState()
+	d3.select("#scatter").style("display","none");
+	d3.select("#clustergram").style("display","block");
 
-	// console.log(this.DataPanel.getCurrentState())
-	// console.log(this._properties)
-	// console.log(this.DataPanel._properties)
+	label = a.selectedLabelOption;
+	color = a.selectedColorOptionName;
+	data = b.points;
 
-	// var b = this.DataPanel.selectedTensor()
-
-	var clust_json = GlobalTensor.replace(" ","").concat('.json')
-
-	var b = this.projector.dataSet
-
-	label = a.selectedLabelOption
-	color = a.selectedColorOptionName
-	data = b.points
-
-	// var b = this.projector.setupUploadButtons
-
-	// console.log(this.clusterCols)
-	// console.log(this.clusterRows)
-	// console.log(a)
-	// console.log(a.selectedLabelOption)
-	// console.log(a.selectedColorOptionName)
-	// console.log(b)
-	// console.log(b.points)
-
-	var clust_json = GlobalTensor.replace("Staining Set ","SS").concat('.json')
-
-	// console.log(clust_json)
+	var clust_json = GlobalTensor.replace("Staining Set ","SS").concat('.json');
 
 	make_clust(clust_json)
+
 };
 q.reprojectCustom = function() {
 	if (null != this.centroids && null != this.centroids.xLeft && null != this.centroids.xRight && null != this.centroids.yUp && null != this.centroids.yDown) {

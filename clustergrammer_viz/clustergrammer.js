@@ -75,7 +75,7 @@ var Clustergrammer =
 	__webpack_require__(188);
 	__webpack_require__(192);
 
-	/* clustergrammer v1.15.3
+	/* clustergrammer v1.15.4
 	 * Nick Fernandez, Ma'ayan Lab, Icahn School of Medicine at Mount Sinai
 	 * (c) 2017
 	 */
@@ -620,7 +620,9 @@ var Clustergrammer =
 	    tile_tip_callback: null,
 	    matrix_update_callback: null,
 	    dendro_callback: null,
-	    new_row_cats: null
+	    dendro_click_callback: null,
+	    new_row_cats: null,
+	    make_modals: true
 	  };
 
 	  return defaults;
@@ -3959,6 +3961,10 @@ var Clustergrammer =
 
 	    if (params.viz.cat_info[inst_rc] !== null) {
 	      make_cat_breakdown_graph(params, inst_rc, d, dendro_info[i], inst_selector);
+	    }
+
+	    if (cgm.params.dendro_click_callback != null) {
+	      cgm.params.dendro_click_callback(this);
 	    }
 	  }).call(dendro_tip);
 
@@ -13741,7 +13747,10 @@ var Clustergrammer =
 
 	  sidebar.append('div').classed('icons_section', true).style('text-align', 'center');
 
-	  make_modals(params);
+	  if (cgm.params.make_modals) {
+	    make_modals(params);
+	  }
+
 	  if (params.sidebar.icons) {
 	    make_icons(cgm, sidebar);
 	  }

@@ -5193,7 +5193,20 @@ paper-dropdown-menu paper-item {
   flex-grow: 2;
 }
 
+/*#main .clustergram {
+  position: relative;
+  flex-grow: 2;
+}*/
+
 #scatter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#clustergram {
   position: absolute;
   top: 0;
   left: 0;
@@ -5216,6 +5229,7 @@ paper-dropdown-menu paper-item {
   width: 312px;
   border-right: 1px solid rgba(0, 0, 0, 0.1);
   background: #fafafa;
+  z-index: 1;
 }
 
 #right-pane {
@@ -5262,6 +5276,22 @@ paper-dropdown-menu paper-item {
   --paper-spinner-color: #880E4F;
   --paper-spinner-stroke-width: 2px;
 }
+
+#notification-dialog-2 {
+  width: 400px;
+  padding-bottom: 20px;
+}
+
+#notification-dialog-2 paper-button {
+  background: none;
+  text-transform: uppercase;
+}
+
+#notification-dialog-2 .progress {
+  --paper-spinner-color: #880E4F;
+  --paper-spinner-stroke-width: 2px;
+}
+
 
 #notify-msgs {
   text-align: center;
@@ -5400,6 +5430,19 @@ paper-dropdown-menu paper-item {
     <paper-button class="close-button" dialog-confirm="" autofocus="">Close</paper-button>
   </div>
 </paper-dialog>
+
+<paper-dialog id="notification-dialog-2" modal="">
+  <h2 id="notification-title"></h2>
+  <paper-dialog-scrollable>
+    <div id="notify-msgs"></div>
+  </paper-dialog-scrollable>
+  <div style="text-align: center;"><paper-spinner-lite active="" class="progress"></paper-spinner-lite></div>
+  <div class="buttons">
+    <paper-button class="close-button" dialog-confirm="" autofocus="">Close</paper-button>
+  </div>
+</paper-dialog>
+
+
 <div id="container">
   <div id="left-pane" class="ink-panel">
     <vz-projector-data-panel id="data-panel"></vz-projector-data-panel>
@@ -5429,7 +5472,7 @@ paper-dropdown-menu paper-item {
       <div id="scatter">
         <svg id="selector"></svg>
       </div>
-      <div id="clustergram-container" style="height: 500px; width: 500px"></div>
+      <div id="clustergram" style="height: 500px; width: 500px"></div>
 
       <vz-projector-metadata-card id="metadata-card"></vz-projector-metadata-card>
       <paper-icon-button raised="" onclick="help3dDialog.open()" icon="help-outline" id="help-3d-icon"></paper-icon-button>
