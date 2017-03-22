@@ -53737,11 +53737,8 @@ function Hn(a, b, c) {
 zn.getSearchPredicate = Hn;
 
 function In(a, b, c) {
-	console.log("a =",a)
-	console.log("c =",c)
 	c = void 0 === c ? null : c;
 	var d = null == c;
-	console.log("d =",d)
 	c = wn(a, c);
 	return new Promise(function(a, f) {
 		d3.timer(function() {
@@ -56707,7 +56704,7 @@ q.initialize = function(a, b) {
 	this.setupUI(a);
 	b.registerSelectionChangedListener(function(a, b) {
 		return c.updateInspectorPane(a, b)
-	})
+	});
 };
 q.updateInspectorPane = function(a, b) {
 	this.neighborsOfFirstPoint = b;
@@ -56735,6 +56732,7 @@ q.datasetChanged = function() {
 	this.enableResetFilterButton(!1)
 };
 q.updateSearchResults = function(a) {
+	var index = a;
 	var b = this,
 		c = this.dom.select(".matches-list");
 	c.style("display", a.length ? null : "none");
@@ -56751,7 +56749,8 @@ q.updateSearchResults = function(a) {
 			b.projectorEventContext.notifyHoverOverPoint(null)
 		}), a.on("click", function(a) {
 			b.projectorEventContext.notifySelectionChanged([a])
-		}))
+		}));
+	filterClustergram(index);
 };
 q.getLabelFromIndex = function(a) {
 	a = this.projector.dataSet.points[a];
@@ -56997,13 +56996,13 @@ Lq.ProjectionsPanelPolymer = mq({
 		},
 		clusterOpts: Array,
 		clusterRows: {
-			type: String,
-			value: "Cluster",
+			type: Number,
+			value: 1,
 			observer: "showClusterIfEnabled"
 		},
 		clusterCols: {
-			type: String,
-			value: "Cluster",
+			type: Number,
+			value: 1,
 			observer: "showClusterIfEnabled"
 		},
 		// customSelectedSearchByMetadataOption: {
@@ -57209,7 +57208,7 @@ q.updateTotalVarianceMessage = function() {
 	this.dom.select("#total-variance").html(c)
 };
 q.showPCA = function() {
-	// console.log("show PCA")
+	console.log("show PCA")
 	d3.select("#clustergram").style("display","none");
 	d3.select("#scatter").style("display","block");
 	// d3.select('#clustergram-container div').html('');
@@ -57234,13 +57233,22 @@ q.showPCA = function() {
 q.showCluster = function() {
 	console.log("showCluster")
 	var a = this;
-	opts = ["Alphabetically", "Cluster", "Sum", "Variance"]
+
+	var cgm_opts = ["alpha","clust","sum","var"];
+
+	opts = ["Alphabetically", "Cluster", "Sum", "Variance"];
 	a.clusterOpts = d3.range(0,opts.length).map(function(b) {
 		return {
 			id: b,
 			option: opts[b]
-		}
-	})
+		};
+	});
+
+	if (typeof cgm != "undefined") {
+		row_opt = cgm_opts[a.clusterRows];
+		col_opt = cgm_opts[a.clusterCols];
+		cgm.reorder('row', row_opt); cgm.reorder('col',col_opt);
+	};
 };
 q.loadCluster = function() {
 

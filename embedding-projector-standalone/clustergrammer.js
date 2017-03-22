@@ -5240,6 +5240,7 @@ var Clustergrammer =
 	var calc_downsampled_levels = __webpack_require__(27);
 
 	module.exports = function col_reorder(cgm, col_selection, inst_term) {
+		console.log(cgm, col_selection, inst_term)
 
 	  var params = cgm.params;
 	  var prev_zoom = get_previous_zoom(params);
@@ -5949,6 +5950,8 @@ var Clustergrammer =
 	  if (params.viz.show_dendrogram) {
 	    toggle_dendro_view(cgm, inst_rc);
 	  }
+
+	  // debugger;
 
 	  if (other_rc === 'row') {
 	    params.viz.x_scale.domain(params.matrix.orders[params.viz.inst_order.row + '_row']);

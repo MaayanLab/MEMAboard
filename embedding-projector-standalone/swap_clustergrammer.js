@@ -1,10 +1,4 @@
 
-console.log("swappin")
-
-// d3.selectAll("main").style("display","none")
-// d3.selectAll("canvas").style("display","block")
-
-// make_clust('mult_view.json');
 
 var about_string = 'Zoom, scroll, and click buttons to interact with the clustergram. <a href="http://amp.pharm.mssm.edu/clustergrammer/help"> <i class="fa fa-question-circle" aria-hidden="true"></i> </a>';
 
@@ -42,9 +36,10 @@ function make_clust(inst_network) {
         cgm.resize_viz();
       });
 
+      d3.select(window).on()
+
       cgm = Clustergrammer(args);
 
-      // TOO HACKY AND SLOW... NEED TO INITIALIZE WITHOUT EXPAND / MODAL
       d3.select(".expand_button").remove()
       // check_setup_enrichr(cgm);
 
@@ -76,4 +71,42 @@ function dendro_callback(dendro_data) {
   console.log(dendro_data)
   console.log(dendro_data.__data__) // use this to get data from 
 }
+
+function filterClustergram(index) {
+
+  console.log("setting wait true"); WAIT = true;
+  setTimeout(function() { if (WAIT == true) { WAIT = false }; }, 3000);
+
+  // setTimeout(function() {
+  //   console.log("setting wait false"); WAIT = false;
+  // }, 3000);
+
+  setTimeout(function() {
+      console.log("WAIT =",WAIT);
+      if (index.length == 0 || typeof cgm == "undefined" || WAIT) {
+      } else {
+        console.log("FILTERING")
+        var row_names = index.map(function(x) { return cgm.params.network_data.row_nodes_names[x] });
+        cgm.filter_viz_using_names({'row': row_names});
+      };
+      // WAIT = false;
+  }, 3000);
+
+  // console.log("setting wait true"); WAIT = true;
+  // WAIT = true;
+
+  // WAIT = false;
+  // if (WAIT) 
+  // setTimeout(function() { console.log("setting wait false"); WAIT = false; }, 2000);
+
+
+  // if (index.length == 0 || typeof cgm == "undefined" || WAIT) {
+  // } else {
+  //   console.log("filterClustergram")
+  //   var row_names = index.map(function(x) { return cgm.params.network_data.row_nodes_names[x] });
+  //   cgm.filter_viz_using_names({'row': row_names});
+  // };
+  // WAIT = true;
+  // setTimeout(function() { WAIT = false; }, 2000);
+};
 
