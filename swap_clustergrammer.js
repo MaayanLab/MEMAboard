@@ -16,7 +16,7 @@ function make_clust(inst_network) {
         // 'col_tip_callback':test_col_callback,
         // 'tile_tip_callback':test_tile_callback,
         // 'dendro_callback':dendro_callback, // USE THIS
-        // 'matrix_update_callback':matrix_update_callback,
+        'matrix_update_callback': matrix_update_callback,
         'sidebar_width':150,
         'make_modals': false
         // 'ini_view':{'N_row_var':20}
@@ -34,7 +34,6 @@ function make_clust(inst_network) {
       cgm = Clustergrammer(args);
 
       d3.select(".expand_button").remove()
-
       d3.select(cgm.params.root + ' .wait_message').remove();
 
       In(null, function() {} , 0); // This is really hacky but it works
@@ -68,20 +67,16 @@ function dendro_callback(dendro_data) {
 };
 
 function filterClustergram(index, names) {
-
-  // console.log(names)
-  
+ 
   clearTimeout(timer);
 
   timer = setTimeout(function() {
-      if (names.length == 0) {
-        var selection = {}; // GET ALL ROWS
-      } else {
-        var selection = { 'row' : names.map(function(x) { return x.replace("_"," ")}) };
-      };
-      cgm.filter_viz_using_names(selection);
-      // };
-
+    if (names.length == 0) {
+      var selection = {}; // GET ALL ROWS
+    } else {
+      var selection = { 'row' : names.map(function(x) { return x.replace("_"," ")}) };
+    };
+    cgm.filter_viz_using_names(selection);
   }, 500);
 };
 
@@ -101,3 +96,6 @@ function set_up_scatter() {
   d3.select("#colorby").attr("label", "Color by");
 }
 
+function matrix_update_callback() {
+  d3.select(".expand_button").remove()
+};

@@ -57428,7 +57428,8 @@ q.updateDataSet = function(a, b, c) {
 	this.dataSetFilterIndices = null;
 	this.originalDataSet = a;
 	if (null != a) {
-		this.normalizeData = 50 <= this.originalDataSet.dim[1];
+		// this.normalizeData = 50 <= this.originalDataSet.dim[1];
+		this.normalizeData = false;
 		b = b || {};
 		if (null == b.pointsInfo) {
 			var d = F.makeIterator(this.makeDefaultPointsInfoAndStats(a.points)),
