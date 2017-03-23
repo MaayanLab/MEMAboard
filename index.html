@@ -3191,7 +3191,6 @@ limitations under the License.
 :host {
   --paper-input-container-label: {
     font-size: 14px;
-    /*color: #e3e3e3;*/
   };
   --paper-input-container-input: {
     font-size: 14px;
@@ -5045,7 +5044,7 @@ paper-dropdown-menu paper-item {
       <div class="two-columns">
         <div> 
           <paper-dropdown-menu class="pca-dropdown" vertical-align="bottom" no-animations="" label="X">
-            <paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{pcaX}}" primary-text-color="#ff0000">
+            <paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{pcaX}}">
               <paper-item disabled="" class="dropdown-item header">
                   <div>#</div>
                   <div>Variance (%)</div>
@@ -5134,8 +5133,8 @@ paper-dropdown-menu paper-item {
                 <paper-item class="dropdown-item" value="[[item.id]]" label="[[item.option]]">
                   <div>[[item.option]]</div>
                   <!-- <div class="item-details">[[item.percVariance]]</div> -->
-                </paper-item>
               </template>
+                </paper-item>
             </paper-listbox>
           </paper-dropdown-menu>
         </div>
@@ -5194,7 +5193,20 @@ paper-dropdown-menu paper-item {
   flex-grow: 2;
 }
 
+/*#main .clustergram {
+  position: relative;
+  flex-grow: 2;
+}*/
+
 #scatter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#clustergram {
   position: absolute;
   top: 0;
   left: 0;
@@ -5217,6 +5229,7 @@ paper-dropdown-menu paper-item {
   width: 312px;
   border-right: 1px solid rgba(0, 0, 0, 0.1);
   background: #fafafa;
+  z-index: 1;
 }
 
 #right-pane {
@@ -5263,6 +5276,22 @@ paper-dropdown-menu paper-item {
   --paper-spinner-color: #880E4F;
   --paper-spinner-stroke-width: 2px;
 }
+
+#notification-dialog-2 {
+  width: 400px;
+  padding-bottom: 20px;
+}
+
+#notification-dialog-2 paper-button {
+  background: none;
+  text-transform: uppercase;
+}
+
+#notification-dialog-2 .progress {
+  --paper-spinner-color: #880E4F;
+  --paper-spinner-stroke-width: 2px;
+}
+
 
 #notify-msgs {
   text-align: center;
@@ -5401,6 +5430,19 @@ paper-dropdown-menu paper-item {
     <paper-button class="close-button" dialog-confirm="" autofocus="">Close</paper-button>
   </div>
 </paper-dialog>
+
+<paper-dialog id="notification-dialog-2" modal="">
+  <h2 id="notification-title"></h2>
+  <paper-dialog-scrollable>
+    <div id="notify-msgs"></div>
+  </paper-dialog-scrollable>
+  <div style="text-align: center;"><paper-spinner-lite active="" class="progress"></paper-spinner-lite></div>
+  <div class="buttons">
+    <paper-button class="close-button" dialog-confirm="" autofocus="">Close</paper-button>
+  </div>
+</paper-dialog>
+
+
 <div id="container">
   <div id="left-pane" class="ink-panel">
     <vz-projector-data-panel id="data-panel"></vz-projector-data-panel>
@@ -5430,7 +5472,7 @@ paper-dropdown-menu paper-item {
       <div id="scatter">
         <svg id="selector"></svg>
       </div>
-      <div id="clustergram-container" style="height: 500px; width: 500px"></div>
+      <div id="clustergram" style="height: 500px; width: 500px"></div>
 
       <vz-projector-metadata-card id="metadata-card"></vz-projector-metadata-card>
       <paper-icon-button raised="" onclick="help3dDialog.open()" icon="help-outline" id="help-3d-icon"></paper-icon-button>
@@ -5506,7 +5548,7 @@ vz-projector {
 
 <div id="container">
   <div id="appbar">
-    <div>MCF10A Microenvironment Purturbations (MEP) </div>
+    <div>MCF10A Microenvironment Purturbations (MEP)</div>
     <div class="icons">
       <a title="Documentation" target="_blank" href="[[documentationLink]]">
         <paper-icon-button icon="help-outline"></paper-icon-button>
@@ -5529,9 +5571,10 @@ vz-projector {
 </template>
 </dom-module>
 </div>
-  <vz-projector-app documentation-link="https://www.tensorflow.org/versions/master/how_tos/embedding_viz/index.md" bug-report-link="https://github.com/tensorflow/tensorflow/issues" serving-mode="demo" projector-config-json-path="oss_data/oss_demo_projector_config.json" page-view-logging="">
+<!--   <vz-projector-app documentation-link="https://www.tensorflow.org/versions/master/how_tos/embedding_viz/index.md" bug-report-link="https://github.com/tensorflow/tensorflow/issues" serving-mode="demo" projector-config-json-path="oss_data/oss_demo_projector_config.json" page-view-logging="">
+  </vz-projector-app> -->
+  <vz-projector-app documentation-link="https://www.tensorflow.org/versions/master/how_tos/embedding_viz/index.md" bug-report-link="https://github.com/tensorflow/tensorflow/issues" serving-mode="demo" projector-config-json-path="oss_demo_projector_config.json" page-view-logging="">
   </vz-projector-app>
-
   <script src="oss_demo_bin.js"></script></body></html>
 
   <script src="lib/js/jquery-1.11.2.min.js"></script>
@@ -5540,3 +5583,4 @@ vz-projector {
 
   <script src="clustergrammer.js"></script>
   <script src="swap_clustergrammer.js"></script>
+  

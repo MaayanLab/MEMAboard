@@ -1,48 +1,30 @@
 {
   "embeddings": [
     {
-<<<<<<< HEAD:oss_data/oss_demo_projector_config.json
-      "tensorName": "Staining Set 1",
-      "tensorShape": [2736, 57],
-      "tensorPath": "oss_data/MCF10A_SS1.tsv",
-=======
       "tensorPath": "oss_data/MCF10A_SS1.tsv", 
       "tensorName": "Staining Set 1", 
       "tensorShape": [
         2736, 
         57
       ], 
->>>>>>> nick:embedding-projector-standalone/oss_data/oss_demo_projector_config.json
       "metadataPath": "oss_data/MCF10A_SS1_meta.tsv"
     }, 
     {
-<<<<<<< HEAD:oss_data/oss_demo_projector_config.json
-      "tensorName": "Staining Set 2",
-      "tensorShape": [2736, 24],
-      "tensorPath": "oss_data/MCF10A_SS2.tsv",
-=======
       "tensorPath": "oss_data/MCF10A_SS2.tsv", 
       "tensorName": "Staining Set 2", 
       "tensorShape": [
         2736, 
         24
       ], 
->>>>>>> nick:embedding-projector-standalone/oss_data/oss_demo_projector_config.json
       "metadataPath": "oss_data/MCF10A_SS2_meta.tsv"
     }, 
     {
-<<<<<<< HEAD:oss_data/oss_demo_projector_config.json
-      "tensorName": "Staining Set 3",
-      "tensorShape": [2736, 70],
-      "tensorPath": "oss_data/MCF10A_SS3.tsv",
-=======
       "tensorPath": "oss_data/MCF10A_SS3.tsv", 
       "tensorName": "Staining Set 3", 
       "tensorShape": [
         2736, 
         70
       ], 
->>>>>>> nick:embedding-projector-standalone/oss_data/oss_demo_projector_config.json
       "metadataPath": "oss_data/MCF10A_SS3_meta.tsv"
     }
   ]
