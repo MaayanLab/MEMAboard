@@ -15,7 +15,6 @@ document.documentElement.style.overflowY = 'hidden';
 	window.WebComponents = window.WebComponents || {
 		flags: {}
 	};
-	console.log("oss_demo_bin")
 	var e = "webcomponents-lite.js",
 		t = document.querySelector('script[src*="' + e + '"]'),
 		n = {};
