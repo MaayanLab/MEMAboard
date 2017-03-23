@@ -8,6 +8,9 @@
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
 // @version 0.7.23
+
+document.documentElement.style.overflowY = 'hidden';
+
 ! function() {
 	window.WebComponents = window.WebComponents || {
 		flags: {}
@@ -56366,7 +56369,8 @@ q.updateMetadataUI = function(a, b) {
 	});
 	this.selectedLabelOption = this.labelOptions[Math.max(0, c)];
 	b = [{
-		name: "No color map"
+		// name: "No color map"
+		name: "None"
 	}];
 	a = a.filter(function(a) {
 		return !a.tooManyUniqueValues || a.isNumeric
@@ -56733,12 +56737,16 @@ q.datasetChanged = function() {
 };
 q.updateSearchResults = function(a) {
 	var index = a;
+	// var obj = this
+	// console.log(this.metadata)
 	var b = this,
 		c = this.dom.select(".matches-list");
 	c.style("display", a.length ? null : "none");
 	c = c.select(".list");
 	c.html("");
 	0 !== a.length && (this.limitMessage.style("display", 100 >= a.length ? "none" : null), a = a.slice(0, 100), a = c.selectAll(".row").data(a).enter().append("div").attr("class", "row"), a.append("a").attr("class", "label").attr("title", function(a) {
+			// var loop_b = b;
+			// console.log(obj == b)
 			return b.getLabelFromIndex(a)
 		}).text(function(a) {
 			return b.getLabelFromIndex(a)
@@ -56749,8 +56757,15 @@ q.updateSearchResults = function(a) {
 			b.projectorEventContext.notifyHoverOverPoint(null)
 		}), a.on("click", function(a) {
 			b.projectorEventContext.notifySelectionChanged([a])
-		}));
-	filterClustergram(index);
+		}))
+
+
+	names = index.map( function(x) { return b.getLabelFromIndex(x) });
+	// console.log(names)
+
+	// console.log(loop_b == b)
+
+	if ( typeof cgm != "undefined" ) { filterClustergram(index, names) };
 };
 q.getLabelFromIndex = function(a) {
 	a = this.projector.dataSet.points[a];
@@ -57172,9 +57187,10 @@ q.beginProjection = function(a) {
 };
 q.showTSNE = function() {
 	// console.log("show TSNE")
-	d3.select("#clustergram").style("display","none");
-	d3.select("#scatter").style("display","block");
-	d3.select(".colorby").style("label","")
+	set_up_scatter();
+	// d3.select("#clustergram").style("display","none");
+	// d3.select("#scatter").style("display","block");
+	// d3.select("#colorby").attr("label", "Color by")
 	// d3.select('#clustergram-container div').html('');
 	var a = this.dataSet;
 	if (null != a) {
@@ -57208,9 +57224,11 @@ q.updateTotalVarianceMessage = function() {
 	this.dom.select("#total-variance").html(c)
 };
 q.showPCA = function() {
-	console.log("show PCA")
-	d3.select("#clustergram").style("display","none");
-	d3.select("#scatter").style("display","block");
+	// console.log("show PCA")
+	set_up_scatter();
+	// d3.select("#clustergram").style("display","none");
+	// d3.select("#scatter").style("display","block");
+	// d3.select("#colorby").attr("label", "Color by")
 	// d3.select('#clustergram-container div').html('');
 	var a = this;
 	null != this.dataSet && this.dataSet.projectPCA().then(function() {
@@ -57257,16 +57275,24 @@ q.loadCluster = function() {
 	var a = this.projector.getCurrentState();
 	var b = this.projector.dataSet;
 
-	d3.select("#scatter").style("display","none");
-	d3.select("#clustergram").style("display","block");
+	set_up_clustergram();
+	// d3.select("#scatter").style("display","none");
+	// d3.select("#clustergram").style("display","block");
+	// d3.select("#colorby").attr("label", "Expand column")
 
 	label = a.selectedLabelOption;
 	color = a.selectedColorOptionName;
 	data = b.points;
 
-	var clust_json = GlobalTensor.replace("Staining Set ","SS").concat('.json');
+	if ( typeof cgm == "undefined") {
+		var clust_json = GlobalTensor.replace("Staining Set ","SS").concat('.json');
+		make_clust(clust_json)
+	} else {
+		In(null, function() {} , 0);
+	}
+	// var clust_json = GlobalTensor.replace("Staining Set ","SS").concat('.json');
 
-	make_clust(clust_json)
+	// make_clust(clust_json)
 
 };
 q.reprojectCustom = function() {

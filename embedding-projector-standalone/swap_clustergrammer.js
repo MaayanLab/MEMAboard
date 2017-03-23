@@ -3,13 +3,8 @@
 var about_string = 'Zoom, scroll, and click buttons to interact with the clustergram. <a href="http://amp.pharm.mssm.edu/clustergrammer/help"> <i class="fa fa-question-circle" aria-hidden="true"></i> </a>';
 
 function make_clust(inst_network) {
-  // d3.select(".notification-dialog-2").style("display","block");
-  // d3.select('#clustergram-container div').remove();
-    // console.log("running make_clust")
 
     d3.json('json/'+inst_network, function(network_data) {
-
-      // console.log(network_data)
 
       // define arguments object
       var args = {
@@ -30,8 +25,6 @@ function make_clust(inst_network) {
       resize_container(args);
 
       d3.select(window).on('resize',function(){
-        // console.log("ON resize")
-        // console.log("resizing clustergrammer")
         resize_container(args);
         cgm.resize_viz();
       });
@@ -41,7 +34,6 @@ function make_clust(inst_network) {
       cgm = Clustergrammer(args);
 
       d3.select(".expand_button").remove()
-      // check_setup_enrichr(cgm);
 
       d3.select(cgm.params.root + ' .wait_message').remove();
 
@@ -53,13 +45,16 @@ function make_clust(inst_network) {
 
 function resize_container(args){
 
-  // var screen_width = 1000 + 'px';
-  // var screen_width = parseInt(d3.select(".main").style("width"),10) - 300;
-  var screen_width = d3.select(".stage").style("width");
+  console.log("resizing")
+
+  var screen_width = d3.select(".stage").style("width")
   var screen_height = d3.select(".stage").style("height");
 
-  // var screen_width = window.innerWidth - 100;
-  // var screen_height = window.innerHeight - 100;
+  console.log(screen_width, screen_height)
+
+  // var new_width = String(parseInt(screen_width.replace("px","")) - 5) + 'px';
+
+  // console.log(new_width)
 
   d3.select(args.root)
     .style('width', screen_width)
@@ -72,41 +67,42 @@ function dendro_callback(dendro_data) {
   console.log(dendro_data.__data__) // use this to get data from 
 }
 
-function filterClustergram(index) {
+function filterClustergram(index, names) {
 
-  console.log("setting wait true"); WAIT = true;
-  setTimeout(function() { if (WAIT == true) { WAIT = false }; }, 3000);
+  // console.log(names)
+  
+  clearTimeout(timer); console.log("clearing timeout")
 
-  // setTimeout(function() {
-  //   console.log("setting wait false"); WAIT = false;
-  // }, 3000);
-
-  setTimeout(function() {
-      console.log("WAIT =",WAIT);
-      if (index.length == 0 || typeof cgm == "undefined" || WAIT) {
+  timer = setTimeout(function() {
+      // console.log(names.length)
+      // if (index.length == 0 || typeof cgm == "undefined") {
+      // } else {
+      //   var row_sel = index.map(function(x) { return cgm.params.network_data.row_nodes_names[x] });
+      // }
+      if (names.length == 0) {
+        var selection = {}; // GET ALL ROWS
       } else {
-        console.log("FILTERING")
-        var row_names = index.map(function(x) { return cgm.params.network_data.row_nodes_names[x] });
-        cgm.filter_viz_using_names({'row': row_names});
+        var selection = { 'row' : names.map(function(x) { return x.replace("_"," ")}) };
       };
-      // WAIT = false;
-  }, 3000);
+      cgm.filter_viz_using_names(selection);
+      // };
 
-  // console.log("setting wait true"); WAIT = true;
-  // WAIT = true;
-
-  // WAIT = false;
-  // if (WAIT) 
-  // setTimeout(function() { console.log("setting wait false"); WAIT = false; }, 2000);
-
-
-  // if (index.length == 0 || typeof cgm == "undefined" || WAIT) {
-  // } else {
-  //   console.log("filterClustergram")
-  //   var row_names = index.map(function(x) { return cgm.params.network_data.row_nodes_names[x] });
-  //   cgm.filter_viz_using_names({'row': row_names});
-  // };
-  // WAIT = true;
-  // setTimeout(function() { WAIT = false; }, 2000);
+  }, 500);
 };
+
+function set_up_clustergram() {
+  // Fly out scatter, fly in clustergram
+  d3.select("#scatter").style("display","none");
+  d3.select("#clustergram").style("display","block");
+
+  // Change left menubar options
+  d3.select("#colorby").attr("label", "Expand column");
+  // d3.selectAll("iron-selected")
+}
+
+function set_up_scatter() {
+  d3.select("#clustergram").style("display","none");
+  d3.select("#scatter").style("display","block");
+  d3.select("#colorby").attr("label", "Color by");
+}
 
