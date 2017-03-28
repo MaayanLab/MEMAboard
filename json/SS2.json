@@ -65681,10 +65681,16 @@
         1.0, 
         1.0
       ], 
-      "name": "Nuclei_CP_AreaShape_AreaLog2RUVLoess", 
+      "name": "Feature: Area_(Nuclei)", 
       "clust": 19, 
+      "cat_2_index": 0, 
+      "cat_1_index": 0, 
+      "cat_0_index": 0, 
+      "cat-2": "Category: AreaShape", 
       "rank": 3, 
+      "cat-1": "Source: Cell Profiler", 
       "ini": 24, 
+      "cat-0": "Location: Nuclei", 
       "rankvar": 3
     }, 
     {
@@ -65701,10 +65707,16 @@
         1.0, 
         1.0
       ], 
-      "name": "Nuclei_CP_AreaShape_CompactnessLog2RUVLoess", 
+      "name": "Feature: Compactness_(Nuclei)", 
       "clust": 9, 
+      "cat_2_index": 1, 
+      "cat_1_index": 1, 
+      "cat_0_index": 1, 
+      "cat-2": "Category: AreaShape", 
       "rank": 14, 
+      "cat-1": "Source: Cell Profiler", 
       "ini": 23, 
+      "cat-0": "Location: Nuclei", 
       "rankvar": 22
     }, 
     {
@@ -65721,10 +65733,16 @@
         1.0, 
         1.0
       ], 
-      "name": "Nuclei_CP_AreaShape_ExtentLog2RUVLoess", 
+      "name": "Feature: Extent_(Nuclei)", 
       "clust": 11, 
+      "cat_2_index": 2, 
+      "cat_1_index": 2, 
+      "cat_0_index": 2, 
+      "cat-2": "Category: AreaShape", 
       "rank": 15, 
+      "cat-1": "Source: Cell Profiler", 
       "ini": 22, 
+      "cat-0": "Location: Nuclei", 
       "rankvar": 20
     }, 
     {
@@ -65741,10 +65759,16 @@
         1.0, 
         1.0
       ], 
-      "name": "Nuclei_CP_AreaShape_FormFactorLog2RUVLoess", 
+      "name": "Feature: FormFactor_(Nuclei)", 
       "clust": 12, 
+      "cat_2_index": 3, 
+      "cat_1_index": 3, 
+      "cat_0_index": 3, 
+      "cat-2": "Category: AreaShape", 
       "rank": 17, 
+      "cat-1": "Source: Cell Profiler", 
       "ini": 21, 
+      "cat-0": "Location: Nuclei", 
       "rankvar": 10
     }, 
     {
@@ -65761,10 +65785,16 @@
         1.0, 
         1.0
       ], 
-      "name": "Nuclei_CP_AreaShape_MajorAxisLengthLog2RUVLoess", 
+      "name": "Feature: MajorAxisLength_(Nuclei)", 
       "clust": 16, 
+      "cat_2_index": 4, 
+      "cat_1_index": 4, 
+      "cat_0_index": 4, 
+      "cat-2": "Category: AreaShape", 
       "rank": 1, 
+      "cat-1": "Source: Cell Profiler", 
       "ini": 20, 
+      "cat-0": "Location: Nuclei", 
       "rankvar": 12
     }, 
     {
@@ -65781,10 +65811,16 @@
         1.0, 
         1.0
       ], 
-      "name": "Nuclei_CP_AreaShape_MaxFeretDiameterLog2RUVLoess", 
+      "name": "Feature: MaxFeretDiameter_(Nuclei)", 
       "clust": 17, 
+      "cat_2_index": 5, 
+      "cat_1_index": 5, 
+      "cat_0_index": 5, 
+      "cat-2": "Category: AreaShape", 
       "rank": 20, 
+      "cat-1": "Source: Cell Profiler", 
       "ini": 19, 
+      "cat-0": "Location: Nuclei", 
       "rankvar": 19
     }, 
     {
@@ -65801,10 +65837,16 @@
         1.0, 
         1.0
       ], 
-      "name": "Nuclei_CP_AreaShape_MaximumRadiusLog2RUVLoess", 
+      "name": "Feature: MaximumRadius_(Nuclei)", 
       "clust": 22, 
+      "cat_2_index": 6, 
+      "cat_1_index": 6, 
+      "cat_0_index": 6, 
+      "cat-2": "Category: AreaShape", 
       "rank": 6, 
+      "cat-1": "Source: Cell Profiler", 
       "ini": 18, 
+      "cat-0": "Location: Nuclei", 
       "rankvar": 0
     }, 
     {
@@ -65821,10 +65863,16 @@
         1.0, 
         1.0
       ], 
-      "name": "Nuclei_CP_AreaShape_MeanRadiusLog2RUVLoess", 
+      "name": "Feature: MeanRadius_(Nuclei)", 
       "clust": 23, 
+      "cat_2_index": 7, 
+      "cat_1_index": 7, 
+      "cat_0_index": 7, 
+      "cat-2": "Category: AreaShape", 
       "rank": 18, 
+      "cat-1": "Source: Cell Profiler", 
       "ini": 17, 
+      "cat-0": "Location: Nuclei", 
       "rankvar": 1
     }, 
     {
@@ -65841,10 +65889,16 @@
         1.0, 
         1.0
       ], 
-      "name": "Nuclei_CP_AreaShape_MedianRadiusLog2RUVLoess", 
+      "name": "Feature: MedianRadius_(Nuclei)", 
       "clust": 18, 
+      "cat_2_index": 8, 
+      "cat_1_index": 8, 
+      "cat_0_index": 8, 
+      "cat-2": "Category: AreaShape", 
       "rank": 22, 
+      "cat-1": "Source: Cell Profiler", 
       "ini": 16, 
+      "cat-0": "Location: Nuclei", 
       "rankvar": 14
     }, 
     {
@@ -65861,10 +65915,16 @@
         1.0, 
         1.0
       ], 
-      "name": "Nuclei_CP_AreaShape_MinFeretDiameterLog2RUVLoess", 
+      "name": "Feature: MinFeretDiameter_(Nuclei)", 
       "clust": 20, 
+      "cat_2_index": 9, 
+      "cat_1_index": 9, 
+      "cat_0_index": 9, 
+      "cat-2": "Category: AreaShape", 
       "rank": 4, 
+      "cat-1": "Source: Cell Profiler", 
       "ini": 15, 
+      "cat-0": "Location: Nuclei", 
       "rankvar": 7
     }, 
     {
@@ -65881,10 +65941,16 @@
         1.0, 
         1.0
       ], 
-      "name": "Nuclei_CP_AreaShape_MinorAxisLengthLog2RUVLoess", 
+      "name": "Feature: MinorAxisLength_(Nuclei)", 
       "clust": 21, 
+      "cat_2_index": 10, 
+      "cat_1_index": 10, 
+      "cat_0_index": 10, 
+      "cat-2": "Category: AreaShape", 
       "rank": 21, 
+      "cat-1": "Source: Cell Profiler", 
       "ini": 14, 
+      "cat-0": "Location: Nuclei", 
       "rankvar": 2
     }, 
     {
@@ -65901,10 +65967,16 @@
         1.0, 
         1.0
       ], 
-      "name": "Nuclei_CP_AreaShape_PerimeterLog2RUVLoess", 
+      "name": "Feature: Perimeter_(Nuclei)", 
       "clust": 15, 
+      "cat_2_index": 11, 
+      "cat_1_index": 11, 
+      "cat_0_index": 11, 
+      "cat-2": "Category: AreaShape", 
       "rank": 10, 
+      "cat-1": "Source: Cell Profiler", 
       "ini": 13, 
+      "cat-0": "Location: Nuclei", 
       "rankvar": 9
     }, 
     {
@@ -65921,10 +65993,16 @@
         1.0, 
         1.0
       ], 
-      "name": "Nuclei_CP_AreaShape_SolidityLog2RUVLoess", 
+      "name": "Feature: Solidity_(Nuclei)", 
       "clust": 10, 
+      "cat_2_index": 12, 
+      "cat_1_index": 12, 
+      "cat_0_index": 12, 
+      "cat-2": "Category: AreaShape", 
       "rank": 12, 
+      "cat-1": "Source: Cell Profiler", 
       "ini": 12, 
+      "cat-0": "Location: Nuclei", 
       "rankvar": 13
     }, 
     {
@@ -65941,10 +66019,16 @@
         1.0, 
         1.0
       ], 
-      "name": "Nuclei_CP_Intensity_IntegratedIntensity_DapiLog2RUVLoess", 
+      "name": "Feature: DapiIntegratedIntensity_(Nuclei)", 
       "clust": 3, 
+      "cat_2_index": 18, 
+      "cat_1_index": 13, 
+      "cat_0_index": 13, 
+      "cat-2": "Category: Intensity", 
       "rank": 0, 
+      "cat-1": "Source: Cell Profiler", 
       "ini": 11, 
+      "cat-0": "Location: Nuclei", 
       "rankvar": 11
     }, 
     {
@@ -65961,10 +66045,16 @@
         1.0, 
         1.0
       ], 
-      "name": "Nuclei_CP_Intensity_IntegratedIntensity_EdULog2RUVLoess", 
+      "name": "Feature: EdUIntegratedIntensity_(Nuclei)", 
       "clust": 1, 
+      "cat_2_index": 19, 
+      "cat_1_index": 14, 
+      "cat_0_index": 14, 
+      "cat-2": "Category: Intensity", 
       "rank": 23, 
+      "cat-1": "Source: Cell Profiler", 
       "ini": 10, 
+      "cat-0": "Location: Nuclei", 
       "rankvar": 18
     }, 
     {
@@ -65981,10 +66071,16 @@
         1.0, 
         1.0
       ], 
-      "name": "Nuclei_CP_Intensity_IntegratedIntensity_FibrillarinLog2RUVLoess", 
+      "name": "Feature: FibrillarinIntegratedIntensity_(Nuclei)", 
       "clust": 14, 
+      "cat_2_index": 20, 
+      "cat_1_index": 15, 
+      "cat_0_index": 15, 
+      "cat-2": "Category: Intensity", 
       "rank": 2, 
+      "cat-1": "Source: Cell Profiler", 
       "ini": 9, 
+      "cat-0": "Location: Nuclei", 
       "rankvar": 23
     }, 
     {
@@ -66001,10 +66097,16 @@
         1.0, 
         1.0
       ], 
-      "name": "Nuclei_CP_Intensity_MedianIntensity_DapiLog2RUVLoess", 
+      "name": "Feature: DapiMedianIntensity_(Nuclei)", 
       "clust": 4, 
+      "cat_2_index": 21, 
+      "cat_1_index": 16, 
+      "cat_0_index": 16, 
+      "cat-2": "Category: Intensity", 
       "rank": 9, 
+      "cat-1": "Source: Cell Profiler", 
       "ini": 8, 
+      "cat-0": "Location: Nuclei", 
       "rankvar": 16
     }, 
     {
@@ -66021,10 +66123,16 @@
         1.0, 
         1.0
       ], 
-      "name": "Nuclei_CP_Intensity_MedianIntensity_EdULog2RUVLoess", 
+      "name": "Feature: EdUMedianIntensity_(Nuclei)", 
       "clust": 2, 
+      "cat_2_index": 22, 
+      "cat_1_index": 17, 
+      "cat_0_index": 17, 
+      "cat-2": "Category: Intensity", 
       "rank": 5, 
+      "cat-1": "Source: Cell Profiler", 
       "ini": 7, 
+      "cat-0": "Location: Nuclei", 
       "rankvar": 21
     }, 
     {
@@ -66041,10 +66149,16 @@
         1.0, 
         1.0
       ], 
-      "name": "Nuclei_CP_Intensity_MedianIntensity_FibrillarinLog2RUVLoess", 
+      "name": "Feature: FibrillarinMedianIntensity_(Nuclei)", 
       "clust": 5, 
+      "cat_2_index": 23, 
+      "cat_1_index": 18, 
+      "cat_0_index": 18, 
+      "cat-2": "Category: Intensity", 
       "rank": 19, 
+      "cat-1": "Source: Cell Profiler", 
       "ini": 6, 
+      "cat-0": "Location: Nuclei", 
       "rankvar": 5
     }, 
     {
@@ -66061,10 +66175,16 @@
         1.0, 
         1.0
       ], 
-      "name": "Spot_PA_SpotCellCountLog2RUVLoess", 
+      "name": "Feature: SpotCellCount_(Spot)", 
       "clust": 8, 
+      "cat_2_index": 14, 
+      "cat_1_index": 20, 
+      "cat_0_index": 23, 
+      "cat-2": "Category: Count", 
       "rank": 13, 
+      "cat-1": "Source: Pipeline Analysis", 
       "ini": 5, 
+      "cat-0": "Location: Spot", 
       "rankvar": 8
     }, 
     {
@@ -66081,10 +66201,16 @@
         1.0, 
         1.0
       ], 
-      "name": "Nuclei_PA_Cycle_DNA2NProportionLogitRUVLoess", 
+      "name": "Feature: DNA2NProportion_(Nuclei)", 
       "clust": 13, 
+      "cat_2_index": 15, 
+      "cat_1_index": 21, 
+      "cat_0_index": 19, 
+      "cat-2": "Category: Cycle", 
       "rank": 7, 
+      "cat-1": "Source: Pipeline Analysis", 
       "ini": 4, 
+      "cat-0": "Location: Nuclei", 
       "rankvar": 4
     }, 
     {
@@ -66101,10 +66227,16 @@
         1.0, 
         1.0
       ], 
-      "name": "Nuclei_PA_Cycle_DNA4NProportionLogitRUVLoess", 
+      "name": "Feature: DNA4NProportion_(Nuclei)", 
       "clust": 6, 
+      "cat_2_index": 16, 
+      "cat_1_index": 22, 
+      "cat_0_index": 20, 
+      "cat-2": "Category: Cycle", 
       "rank": 8, 
+      "cat-1": "Source: Pipeline Analysis", 
       "ini": 3, 
+      "cat-0": "Location: Nuclei", 
       "rankvar": 15
     }, 
     {
@@ -66121,10 +66253,16 @@
         1.0, 
         1.0
       ], 
-      "name": "Nuclei_CP_AreaShape_EccentricityLogitRUVLoess", 
+      "name": "Feature: Eccentricity_(Nuclei)", 
       "clust": 7, 
+      "cat_2_index": 13, 
+      "cat_1_index": 19, 
+      "cat_0_index": 21, 
+      "cat-2": "Category: AreaShape", 
       "rank": 16, 
+      "cat-1": "Source: Cell Profiler", 
       "ini": 2, 
+      "cat-0": "Location: Nuclei", 
       "rankvar": 17
     }, 
     {
@@ -66141,10 +66279,16 @@
         1.0, 
         1.0
       ], 
-      "name": "Nuclei_PA_Gated_EdUPositiveProportionLogitRUVLoess", 
+      "name": "Feature: EdUPositiveProportion_(Nuclei)", 
       "clust": 0, 
+      "cat_2_index": 17, 
+      "cat_1_index": 23, 
+      "cat_0_index": 22, 
+      "cat-2": "Category: Gated", 
       "rank": 11, 
+      "cat-1": "Source: Pipeline Analysis", 
       "ini": 1, 
+      "cat-0": "Location: Nuclei", 
       "rankvar": 6
     }
   ], 

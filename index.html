@@ -3911,8 +3911,7 @@ paper-dropdown-menu paper-item {
   </template>
 
   <template is="dom-if" if="[[tensorNames]]">
-    
-    <paper-dropdown-menu no-animations="" label="[[_getNumTensorsLabel(tensorNames)]] found">
+    <paper-dropdown-menu id="tensor" no-animations="" label="[[_getNumTensorsLabel(tensorNames)]] found">
       <paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{selectedTensor}}">
         <template is="dom-repeat" items="[[tensorNames]]">
           <paper-item value="[[item.name]]" label="[[item.name]]">
@@ -3927,7 +3926,7 @@ paper-dropdown-menu paper-item {
   </template>
   
   <template is="dom-if" if="[[_hasChoices(labelOptions)]]">
-    <paper-dropdown-menu no-animations="" label="Label by">
+    <paper-dropdown-menu id="labelby" no-animations="" label="Label by">
       <paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{selectedLabelOption}}">
         <template is="dom-repeat" items="[[labelOptions]]">
           <paper-item value="[[item]]" label="[[item]]">
@@ -3943,7 +3942,7 @@ paper-dropdown-menu paper-item {
     <paper-dropdown-menu id="colorby" no-animations="" label="Color by">
       <paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{selectedColorOptionName}}">
         <template is="dom-repeat" items="[[colorOptions]]">
-          <paper-item class$="[[getSeparatorClass(item.isSeparator)]]" value="[[item.name]]" label="[[item.name]]" disabled="[[item.isSeparator]]">
+          <paper-item id=[[item.name]] class$="[[getSeparatorClass(item.isSeparator)]]" value="[[item.name]]" label="[[item.name]]" disabled="[[item.isSeparator]]">
             [[item.name]]
             <span class="item-details">[[item.desc]]</span>
           </paper-item>
@@ -5478,7 +5477,7 @@ paper-dropdown-menu paper-item {
       <paper-icon-button raised="" onclick="help3dDialog.open()" icon="help-outline" id="help-3d-icon"></paper-icon-button>
       <paper-tooltip animation-delay="0" for="help-3d-icon">Help with interaction controls.</paper-tooltip>
       <paper-dialog id="help3dDialog" with-backdrop="">
-        <div class="main" dialog-confirm="" autofocus="">
+        <div class="main scatter" dialog-confirm="" autofocus="">
           <h3>3D controls</h3>
             <b>Rotate</b> Mouse left click.<br>
             <b>Pan</b> Mouse right click.<br>
@@ -5489,7 +5488,14 @@ paper-dropdown-menu paper-item {
             <b>Zoom</b> Mouse wheel.
           <div class="dismiss-dialog-note"> Click anywhere to dismiss.</div>
         </div>
-      </paper-dialog>
+        <div class="main clustergram" dialog-confirm="" autofocus="">
+          <h3>Clustergram controls</h3>
+            <b>Zoom</b> Mouse wheel.<br>
+            <b>Pan</b> Mouse left click.<br>
+            <!-- <b>Zoom</b> Mouse wheel.<br> -->
+            Double click a row or column to reorder it.
+          <div class="dismiss-dialog-note"> Click anywhere to dismiss.</div>
+        </div>
     </div>
   </div>
   <div id="right-pane" class="ink-panel">
@@ -5575,12 +5581,14 @@ vz-projector {
   </vz-projector-app> -->
   <vz-projector-app documentation-link="https://www.tensorflow.org/versions/master/how_tos/embedding_viz/index.md" bug-report-link="https://github.com/tensorflow/tensorflow/issues" serving-mode="demo" projector-config-json-path="oss_demo_projector_config.json" page-view-logging="">
   </vz-projector-app>
+
+  <script src="swap_clustergrammer.js"></script>
   <script src="oss_demo_bin.js"></script></body></html>
 
   <script src="lib/js/jquery-1.11.2.min.js"></script>
   <script src="lib/js/underscore-min.js"></script>
-  <script src="lib/js/bootstrap.min.js"></script>
+  <!-- <script src="lib/js/bootstrap.min.js"></script> -->
 
   <script src="clustergrammer.js"></script>
-  <script src="swap_clustergrammer.js"></script>
+  <!-- <script src="swap_clustergrammer.js"></script> -->
   

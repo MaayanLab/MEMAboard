@@ -8,7 +8,7 @@
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
 // @version 0.7.23
-
+CGM_on = false;
 document.documentElement.style.overflowY = 'hidden';
 
 ! function() {
@@ -44752,6 +44752,7 @@ THREE.WebGLRenderer = function(a) {
 			b = document.createElement("canvas");
 			b.width = Math.floor(a.width * c);
 			b.height = Math.floor(a.height * c);
+			console.log("creating canvas elt", b.width, b.height)
 			c = b.getContext("2d");
 			c.drawImage(a, 0, 0, a.width, a.height, 0, 0, b.width, b.height);
 			console.warn("THREE.WebGLRenderer: image is too big (" + a.width + "x" + a.height + "). Resized to " + b.width + "x" + b.height, a);
@@ -54773,7 +54774,7 @@ var hp = {},
 		this.cellHeight = c;
 		this.numHorizCells = Math.ceil(this.boundWidth(a) / b);
 		this.numVertCells = Math.ceil(this.boundHeight(a) / c);
-		this.grid = Array(this.numHorizCells * this.numVertCells)
+		this.grid = Array(this.numHorizCells * this.numVertCells);
 	};
 q = jp.prototype;
 q.boundWidth = function(a) {
@@ -56418,7 +56419,14 @@ q.setNormalizeData = function(a) {
 	this.normalizeData = a
 };
 q._selectedTensorChanged = function() {
-	d3.select('#clustergram div').remove();
+	// console.log('_selectedTensorChanged')
+
+	console.log("_selectedTensorChanged CGM_on =",CGM_on)
+	if (CGM_on) {
+		delete_clustergram();
+		CGM_on = false;
+	};
+	
 	var a = this;
 	GlobalTensor = this.selectedTensor
 	this.projector.updateDataSet(null, null, null);
@@ -56735,7 +56743,9 @@ q.datasetChanged = function() {
 	this.enableResetFilterButton(!1)
 };
 q.updateSearchResults = function(a) {
+	// console.log("updateSearchResults")
 	var index = a;
+	var obj = this;
 	// var obj = this
 	// console.log(this.metadata)
 	var b = this,
@@ -56758,19 +56768,23 @@ q.updateSearchResults = function(a) {
 			b.projectorEventContext.notifySelectionChanged([a])
 		}))
 
-
-	names = index.map( function(x) { return b.getLabelFromIndex(x) });
-	// console.log(names)
-
-	// console.log(loop_b == b)
-
-	if ( typeof cgm != "undefined" ) { filterClustergram(index, names) };
+	// console.log(index)
+	// names = index.map( function(x) { return b.getLabelFromIndex(x) });
+	if ( CGM_on ) {
+		console.log("update length:",index.length)
+		names = index.map( function(x) { return obj.getLabelFromIndex(x) });
+		filterClustergram(names);
+	};
 };
 q.getLabelFromIndex = function(a) {
 	a = this.projector.dataSet.points[a];
 	return a.metadata[this.selectedMetadataField].toString()
 };
 q.updateNeighborsList = function(a) {
+	// var index = a;
+	// var obj = this;
+	// console.log(a)
+
 	var b = this,
 		c = this.dom.select(".nn-list");
 	c.html("");
@@ -56811,6 +56825,12 @@ q.updateNeighborsList = function(a) {
 			b.projectorEventContext.notifySelectionChanged([a.index])
 		})
 	}
+
+	// if ( CGM_on ) {
+	// 	names = index.map( function(x) { return b.getLabelFromIndex(x) });
+	// 	console.log(names.length)
+	// 	filterClustergram(index, names);
+	// };
 };
 q.updateFilterButtons = function(a) {
 	1 < a ? (this.setFilterButton.text("Isolate " + a + " points").attr("disabled", null), this.clearSelectionButton.attr("disabled", null)) : (this.setFilterButton.attr("disabled", !0), this.clearSelectionButton.attr("disabled", !0))
@@ -57186,11 +57206,7 @@ q.beginProjection = function(a) {
 };
 q.showTSNE = function() {
 	// console.log("show TSNE")
-	set_up_scatter();
-	// d3.select("#clustergram").style("display","none");
-	// d3.select("#scatter").style("display","block");
-	// d3.select("#colorby").attr("label", "Color by")
-	// d3.select('#clustergram-container div').html('');
+	prepare_scatter();
 	var a = this.dataSet;
 	if (null != a) {
 		var b = yo.getProjectionComponents("tsne", [0, 1, this.tSNEis3d ? 2 : null]),
@@ -57223,12 +57239,8 @@ q.updateTotalVarianceMessage = function() {
 	this.dom.select("#total-variance").html(c)
 };
 q.showPCA = function() {
-	// console.log("show PCA")
-	set_up_scatter();
-	// d3.select("#clustergram").style("display","none");
-	// d3.select("#scatter").style("display","block");
-	// d3.select("#colorby").attr("label", "Color by")
-	// d3.select('#clustergram-container div').html('');
+	console.log("showPCA CGM_on =",CGM_on);
+	prepare_scatter(); 
 	var a = this;
 	null != this.dataSet && this.dataSet.projectPCA().then(function() {
 		var b = yo.getProjectionComponents("pca", [a.pcaX, a.pcaY, a.pcaZ]),
@@ -57259,7 +57271,10 @@ q.showCluster = function() {
 		};
 	});
 
-	if (typeof cgm != "undefined") {
+	console.log("showCluster CGM_on =",CGM_on);
+
+	if ( CGM_on ) {
+	// if (typeof cgm != "undefined") {
 		row_opt = cgm_opts[a.clusterRows];
 		col_opt = cgm_opts[a.clusterCols];
 		cgm.reorder('row', row_opt); cgm.reorder('col',col_opt);
@@ -57267,12 +57282,20 @@ q.showCluster = function() {
 };
 q.loadCluster = function() {
 
+	console.log("loadCluster")
+	console.log("loadCluster CGM_on =", CGM_on)
+
 	In("Loading clustergram...", function() {} , 0) // Really hacky but it works
 
 	var a = this.projector.getCurrentState();
 	var b = this.projector.dataSet;
 
-	set_up_clustergram();
+	selected_idx = a.selectedPoints;
+
+	console.log("loadcluster state:", a)
+	console.log("loadcluster data:", b)
+
+	prepare_clustergram();
 	// d3.select("#scatter").style("display","none");
 	// d3.select("#clustergram").style("display","block");
 	// d3.select("#colorby").attr("label", "Expand column")
@@ -57281,16 +57304,14 @@ q.loadCluster = function() {
 	color = a.selectedColorOptionName;
 	data = b.points;
 
-	if ( typeof cgm == "undefined") {
+	// if ( typeof cgm == "undefined") {
+	if ( ! CGM_on ) {
 		var clust_json = GlobalTensor.replace("Staining Set ","SS").concat('.json');
-		make_clust(clust_json)
+		make_clust(clust_json);
+		// In(null, function() {} , 0);
 	} else {
 		In(null, function() {} , 0);
-	}
-	// var clust_json = GlobalTensor.replace("Staining Set ","SS").concat('.json');
-
-	// make_clust(clust_json)
-
+	};
 };
 q.reprojectCustom = function() {
 	if (null != this.centroids && null != this.centroids.xLeft && null != this.centroids.xRight && null != this.centroids.yUp && null != this.centroids.yDown) {

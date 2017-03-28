@@ -4,6 +4,8 @@ var about_string = 'Zoom, scroll, and click buttons to interact with the cluster
 
 function make_clust(inst_network) {
 
+    CGM_on = true;
+
     d3.json('json/'+inst_network, function(network_data) {
 
       // define arguments object
@@ -18,8 +20,12 @@ function make_clust(inst_network) {
         // 'dendro_callback':dendro_callback, // USE THIS
         'matrix_update_callback': matrix_update_callback,
         'sidebar_width':150,
-        'make_modals': false
+        'make_modals': false,
         // 'ini_view':{'N_row_var':20}
+        // 'super_label_scale': 1.5,
+        // 'row_label_scale': 1.0,
+        // 'col_label_scale': 0.5,
+
       };
 
       resize_container(args);
@@ -44,16 +50,10 @@ function make_clust(inst_network) {
 
 function resize_container(args){
 
-  console.log("resizing")
-
   var screen_width = d3.select(".stage").style("width")
   var screen_height = d3.select(".stage").style("height");
 
-  console.log(screen_width, screen_height)
-
-  // var new_width = String(parseInt(screen_width.replace("px","")) - 5) + 'px';
-
-  // console.log(new_width)
+  console.log("resizing",screen_width, screen_height)
 
   d3.select(args.root)
     .style('width', screen_width)
@@ -66,7 +66,7 @@ function dendro_callback(dendro_data) {
   console.log(dendro_data.__data__) // use this to get data from 
 };
 
-function filterClustergram(index, names) {
+function filterClustergram(names) {
  
   clearTimeout(timer);
 
@@ -80,22 +80,44 @@ function filterClustergram(index, names) {
   }, 500);
 };
 
-function set_up_clustergram() {
+function prepare_clustergram() {
   // Fly out scatter, fly in clustergram
-  d3.select("#scatter").style("display","none");
+  d3.select("#scatter").style("visibility","hidden");
+  d3.select(".ink-panel-menubar").style("display","none");
   d3.select("#clustergram").style("display","block");
-
+  // Remove expand button
+  d3.select(".expand_button").remove()
   // Change left menubar options
+  d3.select("#labelby").style("display","none");
   d3.select("#colorby").attr("label", "Expand column");
-  // d3.selectAll("iron-selected")
-}
+  d3.selectAll("#ECMp, #Ligand").style("display","none");
 
-function set_up_scatter() {
+  // Change help button
+  d3.select(".main.scatter").style("display","none");
+  d3.select(".main.clustergram").style("display","block");
+};
+
+function prepare_scatter() {
+  // Fly out clustergram, fly in scatter
   d3.select("#clustergram").style("display","none");
-  d3.select("#scatter").style("display","block");
+  d3.select(".ink-panel-menubar").style("display","flex");
+  d3.select("#scatter").style("visibility","visible");
+  // Change left menubar options
+  d3.select("#labelby").style("display","block");
   d3.select("#colorby").attr("label", "Color by");
-}
+  d3.selectAll("#ECMp, #Ligand").style("display","flex");
+  // Change help button
+  d3.select(".main.scatter").style("display","block");
+  d3.select(".main.clustergram").style("display","none");
+
+  // var handler = window.onresize;
+  // handler();
+};
+
+function delete_clustergram() {
+  d3.selectAll("#clustergram div").remove();
+};
 
 function matrix_update_callback() {
-  d3.select(".expand_button").remove()
+  d3.select(".expand_button").remove();
 };
