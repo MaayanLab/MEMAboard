@@ -53,7 +53,7 @@ function resize_container(args){
   var screen_width = d3.select(".stage").style("width")
   var screen_height = d3.select(".stage").style("height");
 
-  console.log("resizing",screen_width, screen_height)
+  // console.log("resizing",screen_width, screen_height)
 
   d3.select(args.root)
     .style('width', screen_width)
@@ -90,11 +90,14 @@ function prepare_clustergram() {
   // Change left menubar options
   d3.select("#labelby").style("display","none");
   d3.select("#colorby").attr("label", "Expand column");
+  d3.select("#colorby paper-listbox").property("selected","None")
   d3.selectAll("#ECMp, #Ligand").style("display","none");
-
+  d3.select("#normalize-data-checkbox").style("display","none");
+  d3.selectAll(".item").style("display","none");
   // Change help button
   d3.select(".main.scatter").style("display","none");
   d3.select(".main.clustergram").style("display","block");
+
 };
 
 function prepare_scatter() {
@@ -106,6 +109,8 @@ function prepare_scatter() {
   d3.select("#labelby").style("display","block");
   d3.select("#colorby").attr("label", "Color by");
   d3.selectAll("#ECMp, #Ligand").style("display","flex");
+  d3.select("#normalize-data-checkbox").style("display","block");
+  d3.selectAll(".item").style("display","flex");
   // Change help button
   d3.select(".main.scatter").style("display","block");
   d3.select(".main.clustergram").style("display","none");

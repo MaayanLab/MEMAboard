@@ -18228,6 +18228,7 @@ U.PaperDropdownMenu.PaperDropdownMenu = {};
 				a.textContent.trim() : "";
 			this._setValue(b);
 			this._setSelectedItemLabel(b)
+			// console.log("_selectedItemChanged",b)loac
 		},
 		_computeMenuVerticalOffset: function(a) {
 			return a ? -4 : 8
@@ -56419,14 +56420,11 @@ q.setNormalizeData = function(a) {
 	this.normalizeData = a
 };
 q._selectedTensorChanged = function() {
-	// console.log('_selectedTensorChanged')
-
-	console.log("_selectedTensorChanged CGM_on =",CGM_on)
+	// console.log("_selectedTensorChanged CGM_on =",CGM_on)
 	if (CGM_on) {
 		delete_clustergram();
 		CGM_on = false;
 	};
-	
 	var a = this;
 	GlobalTensor = this.selectedTensor
 	this.projector.updateDataSet(null, null, null);
@@ -56474,6 +56472,12 @@ q._selectedLabelOptionChanged = function() {
 	this.projector.setSelectedLabelOption(this.selectedLabelOption)
 };
 q._selectedColorOptionNameChanged = function() {
+	console.log("_selectedColorOptionNameChanged")
+
+	if ( d3.select("#clustergram").style("display") == "block" ) {
+		console.log("Do cluster things!") // Do recluster things here...
+	};
+
 	for (var a, b = 0; b < this.colorOptions.length; b++)
 		if (this.colorOptions[b].name === this.selectedColorOptionName) {
 			a = this.colorOptions[b];
@@ -56825,12 +56829,6 @@ q.updateNeighborsList = function(a) {
 			b.projectorEventContext.notifySelectionChanged([a.index])
 		})
 	}
-
-	// if ( CGM_on ) {
-	// 	names = index.map( function(x) { return b.getLabelFromIndex(x) });
-	// 	console.log(names.length)
-	// 	filterClustergram(index, names);
-	// };
 };
 q.updateFilterButtons = function(a) {
 	1 < a ? (this.setFilterButton.text("Isolate " + a + " points").attr("disabled", null), this.clearSelectionButton.attr("disabled", null)) : (this.setFilterButton.attr("disabled", !0), this.clearSelectionButton.attr("disabled", !0))
@@ -57228,7 +57226,7 @@ q.showPCAIfEnabled = function() {
 	this.polymerChangesTriggerReprojection && this.showPCA()
 };
 q.showClusterIfEnabled = function() {
-	this.showCluster()
+	this.showCluster();
 };
 q.updateTotalVarianceMessage = function() {
 	var a = this.dataSet.fracVariancesExplained,
@@ -57239,7 +57237,7 @@ q.updateTotalVarianceMessage = function() {
 	this.dom.select("#total-variance").html(c)
 };
 q.showPCA = function() {
-	console.log("showPCA CGM_on =",CGM_on);
+	// console.log("showPCA CGM_on =",CGM_on);
 	prepare_scatter(); 
 	var a = this;
 	null != this.dataSet && this.dataSet.projectPCA().then(function() {
@@ -57271,7 +57269,8 @@ q.showCluster = function() {
 		};
 	});
 
-	console.log("showCluster CGM_on =",CGM_on);
+	// console.log("showCluster CGM_on =",CGM_on);
+	// a.projector.setSelectedColorOption( {name: "None"} );
 
 	if ( CGM_on ) {
 	// if (typeof cgm != "undefined") {
@@ -57283,22 +57282,23 @@ q.showCluster = function() {
 q.loadCluster = function() {
 
 	console.log("loadCluster")
-	console.log("loadCluster CGM_on =", CGM_on)
+	// console.log("loadCluster CGM_on =", CGM_on)
 
 	In("Loading clustergram...", function() {} , 0) // Really hacky but it works
 
+	var proj = this.projector
 	var a = this.projector.getCurrentState();
 	var b = this.projector.dataSet;
 
 	selected_idx = a.selectedPoints;
 
-	console.log("loadcluster state:", a)
-	console.log("loadcluster data:", b)
+	console.log(a.selectedColorOptionName, b.selectedColorOptionName)
+
+	a.selectedColorOptionName = None;
+
+	console.log(a.selectedColorOptionName, b.selectedColorOptionName)
 
 	prepare_clustergram();
-	// d3.select("#scatter").style("display","none");
-	// d3.select("#clustergram").style("display","block");
-	// d3.select("#colorby").attr("label", "Expand column")
 
 	label = a.selectedLabelOption;
 	color = a.selectedColorOptionName;
@@ -57312,6 +57312,7 @@ q.loadCluster = function() {
 	} else {
 		In(null, function() {} , 0);
 	};
+	// this.projector.setSelectedColorOption({name: "None"});
 };
 q.reprojectCustom = function() {
 	if (null != this.centroids && null != this.centroids.xLeft && null != this.centroids.xRight && null != this.centroids.yUp && null != this.centroids.yDown) {
@@ -57436,6 +57437,7 @@ q.setSelectedLabelOption = function(a) {
 	this.projectorScatterPlotAdapter.render()
 };
 q.setSelectedColorOption = function(a) {
+	console.log("setSelectedColorOption:",a)
 	this.selectedColorOption = a;
 	this.projectorScatterPlotAdapter.setLegendPointColorer(this.getLegendPointColorer(a));
 	this.projectorScatterPlotAdapter.updateScatterPlotAttributes();
