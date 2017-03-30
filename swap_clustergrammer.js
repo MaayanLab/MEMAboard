@@ -5,6 +5,9 @@ var about_string = 'Zoom, scroll, and click buttons to interact with the cluster
 function make_clust(inst_network) {
 
     CGM_on = true;
+    FEAT_on = false;
+
+    d3.select("#colorby paper-listbox").property("selected","None");
 
     d3.json('json/'+inst_network, function(network_data) {
 
@@ -44,6 +47,52 @@ function make_clust(inst_network) {
 
       In(null, function() {} , 0); // This is really hacky but it works
 
+  });
+
+};
+
+function make_clust_on_feature(inst_network) {
+
+  CGM_on = true;
+  FEAT_on = true;
+
+  d3.json('json/'+inst_network, function(network_data) {
+
+          // define arguments object
+      var args = {
+        root: '#clustergram',
+        'network_data': network_data,
+        'about': about_string,
+        'ini_expand': true, // this removes the sidebar
+        // 'row_tip_callback':hzome.gene_info,
+        // 'col_tip_callback':test_col_callback,
+        // 'tile_tip_callback':test_tile_callback,
+        // 'dendro_callback':dendro_callback, // USE THIS
+        'matrix_update_callback': matrix_update_callback,
+        'sidebar_width':150,
+        'make_modals': false,
+        // 'ini_view':{'N_row_var':20}
+        // 'super_label_scale': 1.5,
+        // 'row_label_scale': 1.0,
+        // 'col_label_scale': 0.5,
+
+      };
+
+      resize_container(args);
+
+      d3.select(window).on('resize',function() {
+        resize_container(args);
+        cgm.resize_viz();
+      });
+
+      d3.select(window).on()
+
+      cgm = Clustergrammer(args);
+
+      d3.select(".expand_button").remove()
+      d3.select(cgm.params.root + ' .wait_message').remove();
+
+      In(null, function() {} , 0);
   });
 
 };
@@ -90,7 +139,12 @@ function prepare_clustergram() {
   // Change left menubar options
   d3.select("#labelby").style("display","none");
   d3.select("#colorby").attr("label", "Expand column");
-  d3.select("#colorby paper-listbox").property("selected","None")
+
+  // var opt = d3.select("#colorby paper-listbox").property("selected");
+  // if (['ECMp','Ligand'].indexOf(opt) > -1) {
+  //   d3.select("#colorby paper-listbox").property("selected","None");
+  // };
+
   d3.selectAll("#ECMp, #Ligand").style("display","none");
   d3.select("#normalize-data-checkbox").style("display","none");
   d3.selectAll(".item").style("display","none");
@@ -121,8 +175,11 @@ function prepare_scatter() {
 
 function delete_clustergram() {
   d3.selectAll("#clustergram div").remove();
+  CGM_on = false;
 };
 
+// Do this every time the clustergram updates
 function matrix_update_callback() {
   d3.select(".expand_button").remove();
 };
+

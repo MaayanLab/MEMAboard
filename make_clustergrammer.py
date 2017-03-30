@@ -19,24 +19,22 @@ net = Network()
 # load matrix tsv file
 # APP_DIR = '../embedding-projector-standalone'
 DATA_PATH = 'oss_data'
+FEAT_PATH = 'feature_data'
 
 row_headers = ['MEP','ECMp','Ligand']
-
 col_headers = ['Feature','Location','Source','Category' ] #,'Marker']
-
 expand_src = {'CP': 'Cell Profiler', 'PA': 'Pipeline Analysis'}
 
+def make_clustergram_matrix(ss):
 # print os.chdir(os.path.join(DATA_PATH, 'MCF10A_SS1_cols.txt'))
-for ss in ['SS1','SS2','SS3']:
-
-	print ss
+	# print ss
+	net = Network()
 
 	data = pd.read_table(os.path.join(DATA_PATH, 'MCF10A_'+ss+'.tsv'), header=None).values
 	row_meta = pd.read_table(os.path.join(DATA_PATH, 'MCF10A_'+ss+'_meta.tsv'))
 
 	with open(os.path.join(DATA_PATH, 'MCF10A_'+ss+'_cols.txt')) as f:
 		col_meta = f.read().splitlines()
-	# col_meta = pd.read_table(os.path.join(DATA_PATH, 'MCF10A_'+ss+'_cols.txt'))
 
 	rows = []
 	for i in range(len(row_meta)):
@@ -52,20 +50,13 @@ for ss in ['SS1','SS2','SS3']:
 		if '_' in marker: marker = '_'+''.join(marker.split('_')[::-1])
 
 		name = marker.replace('_','') + '_(' + loci +')'
-		# print name
-		# break
 
 		source = expand_src[source]
 		col_fields = [ name, loci, source, category ]
-		# print i+1, len(col_fields)
 		cols.append(tuple( col_headers[j]+': '+col_fields[j] for j in range(4)))
-		# break
-	# print cols
-	# break
 
 	df = pd.DataFrame(data, index=rows, columns=cols)
 	net.load_df(df)
-
 
 	# optional filtering and normalization
 	##########################################
@@ -78,3 +69,32 @@ for ss in ['SS1','SS2','SS3']:
 	net.clip(-10,10)
 	net.make_clust(dist_type='cos', views=[], sim_mat=False)
 	net.write_json_to_file('viz', 'json/'+ss+'.json', 'indent')
+
+def make_clustergram_on_features(ss):
+
+	for filename in os.listdir(FEAT_PATH):
+
+		if ss not in filename: continue
+
+		net = Network()
+
+		featname = filename.split('_')[-1].replace('.tsv','')
+		df = pd.read_table(os.path.join(FEAT_PATH, filename), index_col=0)
+
+		df.index = [ tuple(['Ligand: '+x]) for x in df.index.values ]
+		df.columns = [ tuple(['ECMp: '+x]) for x in df.columns.values ]
+
+		net.load_df(df)
+		net.clip(-10,10)
+		net.make_clust(dist_type='cos', views=[], sim_mat=False)
+		net.write_json_to_file('viz', 'json/'+ss+'_'+featname+'.json', 'indent')
+
+def main():
+	for ss in ['SS1','SS2','SS3']:
+		make_clustergram_matrix(ss)
+		make_clustergram_on_features(ss)
+
+
+if __name__ == '__main__':
+	main()
+

@@ -9,6 +9,8 @@
  */
 // @version 0.7.23
 CGM_on = false;
+FEAT_on = false;
+
 document.documentElement.style.overflowY = 'hidden';
 
 ! function() {
@@ -56421,10 +56423,7 @@ q.setNormalizeData = function(a) {
 };
 q._selectedTensorChanged = function() {
 	// console.log("_selectedTensorChanged CGM_on =",CGM_on)
-	if (CGM_on) {
-		delete_clustergram();
-		CGM_on = false;
-	};
+	if (CGM_on) { delete_clustergram() };
 	var a = this;
 	GlobalTensor = this.selectedTensor
 	this.projector.updateDataSet(null, null, null);
@@ -56474,9 +56473,26 @@ q._selectedLabelOptionChanged = function() {
 q._selectedColorOptionNameChanged = function() {
 	console.log("_selectedColorOptionNameChanged")
 
-	if ( d3.select("#clustergram").style("display") == "block" ) {
-		console.log("Do cluster things!") // Do recluster things here...
-	};
+	var ss = GlobalTensor.split('Staining Set ').join('SS');
+	var opt = this.selectedColorOptionName.split(' ').join('');
+	var clust = ss.concat('_',opt,'.json');
+
+
+	if (d3.select("#clustergram").style("display") == "block") {
+		if ( opt == 'None') {
+			In("Loading clustergram...", function() {} , 0)
+			make_clust(ss.concat('.json'));
+		} else {
+			In("Loading clustergram...", function() {} , 0)
+			make_clust_on_feature(clust);
+		}
+	} else if (FEAT_on) {
+		if (['None','Ligand','ECMp'].indexOf(opt) > -1 ) {
+			delete_clustergram();
+		} else {
+			make_clust_on_feature(clust);
+		}
+	}
 
 	for (var a, b = 0; b < this.colorOptions.length; b++)
 		if (this.colorOptions[b].name === this.selectedColorOptionName) {
@@ -57269,50 +57285,32 @@ q.showCluster = function() {
 		};
 	});
 
-	// console.log("showCluster CGM_on =",CGM_on);
-	// a.projector.setSelectedColorOption( {name: "None"} );
-
 	if ( CGM_on ) {
-	// if (typeof cgm != "undefined") {
 		row_opt = cgm_opts[a.clusterRows];
 		col_opt = cgm_opts[a.clusterCols];
 		cgm.reorder('row', row_opt); cgm.reorder('col',col_opt);
 	};
 };
 q.loadCluster = function() {
-
 	console.log("loadCluster")
-	// console.log("loadCluster CGM_on =", CGM_on)
-
 	In("Loading clustergram...", function() {} , 0) // Really hacky but it works
 
-	var proj = this.projector
-	var a = this.projector.getCurrentState();
-	var b = this.projector.dataSet;
-
-	selected_idx = a.selectedPoints;
-
-	console.log(a.selectedColorOptionName, b.selectedColorOptionName)
-
-	a.selectedColorOptionName = None;
-
-	console.log(a.selectedColorOptionName, b.selectedColorOptionName)
+	// var proj = this.projector
+	// var a = this.projector.getCurrentState();
+	// var b = this.projector.dataSet;
+	// selected_idx = a.selectedPoints;
+	// label = a.selectedLabelOption;
+	// color = a.selectedColorOptionName;
+	// data = b.points;
 
 	prepare_clustergram();
 
-	label = a.selectedLabelOption;
-	color = a.selectedColorOptionName;
-	data = b.points;
-
-	// if ( typeof cgm == "undefined") {
 	if ( ! CGM_on ) {
 		var clust_json = GlobalTensor.replace("Staining Set ","SS").concat('.json');
 		make_clust(clust_json);
-		// In(null, function() {} , 0);
 	} else {
 		In(null, function() {} , 0);
 	};
-	// this.projector.setSelectedColorOption({name: "None"});
 };
 q.reprojectCustom = function() {
 	if (null != this.centroids && null != this.centroids.xLeft && null != this.centroids.xRight && null != this.centroids.yUp && null != this.centroids.yDown) {
@@ -57437,7 +57435,6 @@ q.setSelectedLabelOption = function(a) {
 	this.projectorScatterPlotAdapter.render()
 };
 q.setSelectedColorOption = function(a) {
-	console.log("setSelectedColorOption:",a)
 	this.selectedColorOption = a;
 	this.projectorScatterPlotAdapter.setLegendPointColorer(this.getLegendPointColorer(a));
 	this.projectorScatterPlotAdapter.updateScatterPlotAttributes();
