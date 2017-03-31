@@ -138,7 +138,7 @@ function prepare_clustergram() {
   d3.select(".expand_button").remove()
   // Change left menubar options
   d3.select("#labelby").style("display","none");
-  d3.select("#colorby").attr("label", "Expand column");
+  d3.select("#colorby").attr("label", "Cluster by feature");
 
   // var opt = d3.select("#colorby paper-listbox").property("selected");
   // if (['ECMp','Ligand'].indexOf(opt) > -1) {

@@ -11,6 +11,9 @@
 CGM_on = false;
 FEAT_on = false;
 
+gradientMin = '#1C86EE';
+gradientMax = '#FF0000';
+
 document.documentElement.style.overflowY = 'hidden';
 
 ! function() {
@@ -56379,11 +56382,14 @@ q.updateMetadataUI = function(a, b) {
 		return !a.tooManyUniqueValues || a.isNumeric
 	}).map(function(a) {
 		var b, c, d;
+		/// GRADIENT MIN & MAX DEFINED HERE
 		if (a.tooManyUniqueValues) d = [{
-			color: "#ffffdd",
+			// color: "#ffffdd",
+			color: gradientMin,
 			value: a.min
 		}, {
-			color: "#1f2d86",
+			// color: "#1f2d86",
+			color: gradientMax,
 			value: a.max
 		}], b = d3.scale.linear().domain(d.map(function(a) {
 			return a.value
@@ -56392,6 +56398,7 @@ q.updateMetadataUI = function(a, b) {
 		}));
 		else {
 			b = d3.scale.category20();
+			console.log("gradient",b)
 			var h = b.range(),
 				k = h.map(function(a, b) {
 					a = 3 * b % h.length;
@@ -56486,7 +56493,8 @@ q._selectedColorOptionNameChanged = function() {
 			In("Loading clustergram...", function() {} , 0)
 			make_clust_on_feature(clust);
 		}
-	} else if (FEAT_on) {
+	// } else if (FEAT_on) {
+	} else {
 		if (['None','Ligand','ECMp'].indexOf(opt) > -1 ) {
 			delete_clustergram();
 		} else {
