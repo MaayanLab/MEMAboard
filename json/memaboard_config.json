@@ -1,0 +1,31 @@
+{
+  "embeddings": [
+    {
+      "tensorPath": "data/HMEC122L.tsv", 
+      "tensorName": "HMEC122L", 
+      "tensorShape": [
+        2736, 
+        66
+      ], 
+      "metadataPath": "data/HMEC122L_meta.tsv"
+    }, 
+    {
+      "tensorPath": "data/HMEC240L.tsv", 
+      "tensorName": "HMEC240L", 
+      "tensorShape": [
+        2736, 
+        66
+      ], 
+      "metadataPath": "data/HMEC240L_meta.tsv"
+    }, 
+    {
+      "tensorPath": "data/MCF10A.tsv", 
+      "tensorName": "MCF10A", 
+      "tensorShape": [
+        2736, 
+        66
+      ], 
+      "metadataPath": "data/MCF10A_meta.tsv"
+    }
+  ]
+}
