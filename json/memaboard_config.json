@@ -7,7 +7,14 @@
         2736, 
         66
       ], 
-      "metadataPath": "data/HMEC122L_meta.tsv"
+      "metadataPath": "data/HMEC122L_meta.tsv",
+      "sprite": {
+        "singleImageDim": [
+          150, 
+          150
+        ], 
+        "imagePath": "Thumbnails/HMEC122L_sprite.png"
+      }
     }, 
     {
       "tensorPath": "data/HMEC240L.tsv", 
@@ -16,7 +23,14 @@
         2736, 
         66
       ], 
-      "metadataPath": "data/HMEC240L_meta.tsv"
+      "metadataPath": "data/HMEC240L_meta.tsv",
+      "sprite": {
+        "singleImageDim": [
+          150, 
+          150
+        ], 
+        "imagePath": "Thumbnails/HMEC240L_sprite.png"
+      }
     }, 
     {
       "tensorPath": "data/MCF10A.tsv", 
@@ -25,7 +39,14 @@
         2736, 
         66
       ], 
-      "metadataPath": "data/MCF10A_meta.tsv"
+      "metadataPath": "data/MCF10A_meta.tsv",
+      "sprite": {
+        "singleImageDim": [
+          150, 
+          150
+        ], 
+        "imagePath": "Thumbnails/MCF10A_sprite.png"
+      }
     }
   ]
 }
