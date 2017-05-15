@@ -1,6 +1,7 @@
 
 
 var about_string = 'Zoom, scroll, and click buttons to interact with the clustergram. <a href="http://amp.pharm.mssm.edu/clustergrammer/help"> <i class="fa fa-question-circle" aria-hidden="true"></i> </a>';
+var hzome = ini_hzome();
 
 function make_clust(inst_network) {
 
@@ -17,7 +18,7 @@ function make_clust(inst_network) {
         'network_data': network_data,
         'about': about_string,
         'ini_expand': true, // this removes the sidebar
-        // 'row_tip_callback':hzome.gene_info,
+        'row_tip_callback': hzome.gene_info,
         // 'col_tip_callback':test_col_callback,
         // 'tile_tip_callback':test_tile_callback,
         // 'dendro_callback':dendro_callback, // USE THIS
