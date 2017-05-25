@@ -46,16 +46,29 @@ def create_datatables(sscfile, feat_table):
 	meta_path = os.path.join('data', cell+'_meta.tsv')
 	img_path = os.path.join(IMG_DIR, cell+'_sprite.png')
 
-	config["embeddings"].append({
-	 	"tensorName": cell,
-		"tensorShape": dim,
-		"tensorPath": data_path,
-		"metadataPath": meta_path,
-		"sprite":{
-			"imagePath": img_path,
-			"singleImageDim": [150, 150]
-		}	
-	})
+	for tensortype in ['metadata','images']:
+
+		if tensortype == 'metadata':
+
+			config["embeddings"].append({
+			 	"tensorName": cell+' '+tensortype,
+				"tensorShape": dim,
+				"tensorPath": data_path,
+				"metadataPath": meta_path
+			})
+
+		elif tensortype == 'images':
+
+			config["embeddings"].append({
+			 	"tensorName": cell+' '+tensortype,
+				"tensorShape": dim,
+				"tensorPath": data_path,
+				"metadataPath": meta_path,
+				"sprite": {
+					"imagePath": img_path,
+					"singleImageDim": [150, 150]
+				}
+			})
 
 	meta_df.to_csv(meta_path, sep='\t', index=None)
 	data_df.to_csv(data_path, sep='\t', index=None, header=None)
@@ -123,7 +136,7 @@ def main():
 		else: map(lambda f: os.remove(os.path.join(folder,f)), os.listdir(folder))
 
 	# Build tensor files for each item in DATA_DIR
-	for sscfile in os.listdir(DATA_DIR):
+	for sscfile in os.listdir(DATA_DIR)[::-1]:
 		if sscfile[0] == '.': continue
 		create_datatables(sscfile, feat_table)
 
