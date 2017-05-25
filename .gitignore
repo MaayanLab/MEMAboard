@@ -1,3 +1,5 @@
+
+
 # Compiled source #
 ###################
 *.com
@@ -48,6 +50,9 @@ Thumbs.db
 *.idea
 *.swo
 *.swp
+
+# large data files
+SSC_Level3/hmec122l_ssc_Level3.tsv
 
 # sftp configuration file
 sftp-config.json
