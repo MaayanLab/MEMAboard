@@ -56432,7 +56432,7 @@ q._selectedTensorChanged = function() {
 	// console.log("_selectedTensorChanged CGM_on =",CGM_on)
 	if (CGM_on) { delete_clustergram() };
 	var a = this;
-	GlobalTensor = this.selectedTensor
+	GlobalTensor = this.selectedTensor;
 	this.projector.updateDataSet(null, null, null);
 	null != this.selectedTensor && (this.dataProvider.retrieveTensor(this.selectedRun, this.selectedTensor, function(b) {
 		var c = a.getEmbeddingInfoByName(a.selectedTensor).metadataPath;
@@ -56480,19 +56480,25 @@ q._selectedLabelOptionChanged = function() {
 };
 q._selectedColorOptionNameChanged = function() {
 	console.log("_selectedColorOptionNameChanged")
+	console.log(GlobalTensor)
 
-	var ss = GlobalTensor.split('Staining Set ').join('SS');
+	// var ss = GlobalTensor.split('Staining Set ').join('SS');
+	// var ss = GlobalTensor.replace(' metadata','').replace(' images','')
 	var opt = this.selectedColorOptionName.split(' ').join('');
-	var clust = ss.concat('_',opt,'.json');
+	// var clust = ss.concat('_',opt,'.json');
+
+	var cell = GlobalTensor.replace(' metadata','').replace(' images','');
+	var clust = cell.concat('.json')
+	var clust_feat = cell.concat('_',opt,'.json')
 
 
 	if (d3.select("#clustergram").style("display") == "block") {
 		if ( opt == 'None') {
 			In("Loading clustergram...", function() {} , 0)
-			make_clust(ss.concat('.json'));
+			make_clust(clust);
 		} else {
 			In("Loading clustergram...", function() {} , 0)
-			make_clust_on_feature(clust);
+			make_clust_on_feature(clust_feat);
 		}
 	// } else if (FEAT_on) {
 	} else {
@@ -57305,19 +57311,12 @@ q.loadCluster = function() {
 	console.log("loadCluster")
 	In("Loading clustergram...", function() {} , 0) // Really hacky but it works
 
-	// var proj = this.projector
-	// var a = this.projector.getCurrentState();
-	// var b = this.projector.dataSet;
-	// selected_idx = a.selectedPoints;
-	// label = a.selectedLabelOption;
-	// color = a.selectedColorOptionName;
-	// data = b.points;
-
 	prepare_clustergram();
 
 	if ( ! CGM_on ) {
-		var clust_json = GlobalTensor.replace("Staining Set ","SS").concat('.json');
-		make_clust(clust_json);
+		var cell = GlobalTensor.replace(' metadata','').replace(' images','');
+		var clust = cell.concat('.json')
+		make_clust(clust);
 	} else {
 		In(null, function() {} , 0);
 	};

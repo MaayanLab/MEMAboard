@@ -10,6 +10,7 @@ function make_clust(inst_network) {
 
     d3.select("#colorby paper-listbox").property("selected","None");
 
+    console.log("inst_network",inst_network)
     d3.json('json/'+inst_network, function(network_data) {
 
       // define arguments object

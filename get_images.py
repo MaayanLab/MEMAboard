@@ -18,6 +18,7 @@ IMG_DIR = 'Thumbnails'
 USERNAME = 'adohlman'
 PASSWORD = 'sredna93'
 
+with open(os.path.join(IMG_DIR,'ignore_ids.txt')) as f: IGNORE = f.read().splitlines()
 
 def get_centroids(sscfile):
 
@@ -33,11 +34,16 @@ def get_centroids(sscfile):
 
 		centroid = np.matrix(data.mean())
 		Y = cdist(centroid, data, metric='cosine')
-		centroid_ID = data.index.values[Y.argmin()]
+		centroid_ID = str(data.index.values[Y.argmin()])
 
-		mep2id[MEP] = str(centroid_ID)
+		while centroid_ID in IGNORE:
+			data = data.drop(int(centroid_ID))
+			Y = cdist(centroid, data, metric='cosine')
+			centroid_ID = str(data.index.values[Y.argmin()])
 
+		mep2id[MEP] = centroid_ID
 	return mep2id		
+
 
 def get_thumbnails(mep2id):
 
@@ -96,15 +102,11 @@ def main():
 
 	mep2id = {}
 
-	# for folder in [ID_DIR, IMG_DIR]:
-	# 	if folder in os.listdir('.'): os.system('rm -r '+folder)
-	# 	os.mkdir(folder)
-		# map(lambda f: os.remove(os.path.join(folder,f)), os.listdir(folder))
 
 	for sscfile in os.listdir(DATA_DIR):
 		if sscfile[0] == '.': continue
 
-		if sscfile != 'mcf10a_ssc_Level3.tsv': continue
+		# if sscfile != 'mcf10a_ssc_Level3.tsv': continue
 
 		cell = sscfile.split('_',1)[0].upper()
 		print "Processing",cell
@@ -112,9 +114,6 @@ def main():
 		mep2id[cell] = get_centroids(sscfile)
 
 	get_thumbnails(mep2id)
-
-		# for MEP in mep2id.keys():
-		# 	get_thumbnail(mep2id)
 
 
 if __name__ == "__main__":
